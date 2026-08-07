@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Luminary Home</title>
+  <link rel="canonical" href="https://luminaryhome.test/checkout.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    :root { --brand: #b8860b; --brand-dark: #8b6508; }
+    body { font-family: 'Georgia', serif; background: #fafafa; }
+    .navbar-brand { font-size: 1.4rem; font-weight: 700; color: var(--brand) !important; }
+    .btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+    .checkout-section { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 0.8rem; font-weight: 700; }
+    .step-number.inactive { background: #ddd; color: #999; }
+    .order-summary { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 24px; position: sticky; top: 80px; }
+    .price { font-weight: 700; color: var(--brand-dark); }
+    .payment-method-card { border: 2px solid #eee; border-radius: 8px; padding: 16px; cursor: pointer; transition: 0.15s; }
+    .payment-method-card.selected { border-color: var(--brand); background: #fef9f0; }
+    .security-note { font-size: 0.8rem; color: #666; }
+    .field-required::after { content: ' *'; color: #dc3545; }
+    .express-checkout { border: 1px solid #eee; border-radius: 8px; padding: 16px; background: #f9f9f9; }
+    #billing-same-as-shipping + label { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'analytics_storage': 'denied',
+    'ad_user_data': 'denied', 'ad_personalization': 'denied', 'wait_for_update': 500
+  });
+
+  var checkoutCart = {
+    items: [
+      { item_id: 'SKU-001', item_name: 'Artisan Pendant Light', item_brand: 'Luminary Home', item_category: 'Ceiling Lights', item_variant: 'Brass', price: 299.00, currency: 'USD', quantity: 1 },
+      { item_id: 'SKU-012', item_name: 'Smart Edison Bulb Set', item_brand: 'Luminary Home', item_category: 'Smart Lighting', item_variant: 'Warm White 4-pack', price: 89.00, currency: 'USD', quantity: 1 }
+    ],
+    subtotal: 388.00,
+    shipping: 0,
+    tax: 30.24,
+    total: 418.24,
+    coupon: null
+  };
+
+  dataLayer.push({
+    event: 'page_meta',
+    page_type: 'checkout',
+    checkout_step: 1,
+    cart_value: checkoutCart.total,
+    cart_item_count: checkoutCart.items.length,
+    user: { logged_in: false, id_hashed: null, email_hashed: null, customer_type: 'new' }
+  });
+</script>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
+
+<nav class="navbar navbar-light bg-white shadow-sm sticky-top" id="main-nav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LUMINARY HOME</a>
+    <div class="d-flex align-items-center gap-3 text-muted small">
+      <span>🔒 Secure Checkout</span>
+      <a href="cart.html" class="text-muted small">Edit Cart</a>
+    </div>
+  </div>
+</nav>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <!-- Left: Checkout form -->
+    <div class="col-md-7">
+
+      <!-- Checkout steps indicator -->
+      <div class="d-flex align-items-center gap-2 mb-4">
+        <span class="step-number">1</span> <span class="fw-semibold">Contact & Shipping</span>
+        <span class="text-muted mx-2">→</span>
+        <span class="step-number inactive">2</span> <span class="text-muted">Payment</span>
+        <span class="text-muted mx-2">→</span>
+        <span class="step-number inactive">3</span> <span class="text-muted">Review</span>
+      </div>
+
+      <!-- Express checkout -->
+      <div class="express-checkout mb-4" id="express-checkout-section">
+        <p class="text-muted small text-center mb-2">Express checkout</p>
+        <div class="d-flex gap-2 justify-content-center">
+          <button class="btn btn-outline-secondary btn-sm express-checkout-btn" data-method="paypal" style="min-width:120px;">PayPal</button>
+          <button class="btn btn-outline-secondary btn-sm express-checkout-btn" data-method="google_pay" style="min-width:120px;">Google Pay</button>
+          <button class="btn btn-outline-secondary btn-sm express-checkout-btn" data-method="apple_pay" style="min-width:120px;">Apple Pay</button>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-3">
+          <hr class="flex-grow-1"><span class="text-muted small">or continue below</span><hr class="flex-grow-1">
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="checkout-section" id="contact-section">
+        <h5 class="mb-3"><span class="step-number me-2">1</span> Contact Information</h5>
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label field-required" for="email">Email address</label>
+            <input type="email" class="form-control checkout-field" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="marketing-opt-in" name="marketing_opt_in" checked>
+              <label class="form-check-label text-muted small" for="marketing-opt-in">
+                Email me with news and offers
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="checkout-section" id="shipping-section">
+        <h5 class="mb-3">Shipping Address</h5>
+        <div class="row g-3">
+          <div class="col-6">
+            <label class="form-label field-required" for="first-name">First name</label>
+            <input type="text" class="form-control checkout-field" id="first-name" name="first_name" autocomplete="given-name" required>
+          </div>
+          <div class="col-6">
+            <label class="form-label field-required" for="last-name">Last name</label>
+            <input type="text" class="form-control checkout-field" id="last-name" name="last_name" autocomplete="family-name" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="company">Company (optional)</label>
+            <input type="text" class="form-control checkout-field" id="company" name="company" autocomplete="organization">
+          </div>
+          <div class="col-12">
+            <label class="form-label field-required" for="address1">Address</label>
+            <input type="text" class="form-control checkout-field" id="address1" name="address1" autocomplete="address-line1" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="address2">Apartment, suite, etc.</label>
+            <input type="text" class="form-control checkout-field" id="address2" name="address2" autocomplete="address-line2">
+          </div>
+          <div class="col-5">
+            <label class="form-label field-required" for="city">City</label>
+            <input type="text" class="form-control checkout-field" id="city" name="city" autocomplete="address-level2" required>
+          </div>
+          <div class="col-4">
+            <label class="form-label field-required" for="state">State</label>
+            <select class="form-select checkout-field" id="state" name="state" autocomplete="address-level1" required>
+              <option value="">Select…</option>
+              <option>CA</option><option>NY</option><option>TX</option><option>FL</option>
+              <option>IL</option><option>WA</option><option>CO</option><option>MA</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label class="form-label field-required" for="zip">ZIP</label>
+            <input type="text" class="form-control checkout-field" id="zip" name="zip" autocomplete="postal-code" pattern="[0-9]{5}" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="phone">Phone (optional)</label>
+            <input type="tel" class="form-control checkout-field" id="phone" name="phone" autocomplete="tel">
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Method -->
+      <div class="checkout-section" id="shipping-method-section">
+        <h5 class="mb-3">Shipping Method</h5>
+        <div class="d-flex flex-column gap-2" id="shipping-methods">
+          <label class="payment-method-card selected d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+              <input type="radio" name="shipping_method" id="ship-free" value="free" class="shipping-method-radio" checked>
+              <div>
+                <div class="fw-semibold">Standard Shipping</div>
+                <div class="text-muted small">5–7 business days</div>
+              </div>
+            </div>
+            <span class="text-success fw-semibold">Free</span>
+          </label>
+          <label class="payment-method-card d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+              <input type="radio" name="shipping_method" id="ship-express" value="express" class="shipping-method-radio">
+              <div>
+                <div class="fw-semibold">Express Shipping</div>
+                <div class="text-muted small">2–3 business days</div>
+              </div>
+            </div>
+            <span class="fw-semibold">$24.95</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="checkout-section" id="payment-section">
+        <h5 class="mb-3"><span class="step-number me-2">2</span> Payment</h5>
+
+        <div class="row g-2 mb-3" id="payment-method-options">
+          <div class="col-6">
+            <div class="payment-method-card selected text-center" data-method="credit_card" id="pm-card">
+              <input type="radio" name="payment_method" value="credit_card" id="pm-credit" class="payment-method-radio" checked hidden>
+              <div>💳 Credit / Debit Card</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="payment-method-card text-center" data-method="buy_now_pay_later" id="pm-bnpl">
+              <input type="radio" name="payment_method" value="buy_now_pay_later" id="pm-bnpl-radio" class="payment-method-radio" hidden>
+              <div>📆 Pay in 4 (Klarna)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card fields -->
+        <div id="card-fields">
+          <div class="mb-3">
+            <label class="form-label field-required" for="card-number">Card number</label>
+            <input type="text" class="form-control checkout-field" id="card-number" name="card_number" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number">
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="form-label field-required" for="card-expiry">Expiration date</label>
+              <input type="text" class="form-control checkout-field" id="card-expiry" name="card_expiry" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp">
+            </div>
+            <div class="col-6">
+              <label class="form-label field-required" for="card-cvv">Security code</label>
+              <input type="text" class="form-control checkout-field" id="card-cvv" name="card_cvv" placeholder="CVV" maxlength="4" autocomplete="cc-csc">
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="billing-same-as-shipping" checked>
+              <label class="form-check-label" for="billing-same-as-shipping">Billing address same as shipping</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="security-note mt-3 d-flex align-items-center gap-2">
+          <span>🔒</span>
+          <span>All card information is encrypted with TLS 1.3. We never store your full card number.</span>
+        </div>
+      </div>
+
+      <!-- Place Order button -->
+      <div class="d-grid gap-2">
+        <button class="btn btn-brand btn-lg" id="place-order-btn">
+          Place Order — $418.24
+        </button>
+        <p class="text-center text-muted small mt-1">
+          By placing your order you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </p>
+      </div>
+
+    </div><!-- /col-md-7 -->
+
+    <!-- Right: Order Summary -->
+    <div class="col-md-5">
+      <div class="order-summary">
+        <h5 class="mb-3">Order Summary</h5>
+
+        <div class="mb-3" id="checkout-item-list">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-secondary rounded-pill" style="position:relative;top:-8px;left:-4px;font-size:.7rem;">1</span>
+              <span style="font-size:1.4rem;">🔆</span>
+              <div>
+                <div class="small fw-semibold">Artisan Pendant Light</div>
+                <div class="text-muted" style="font-size:0.75rem;">Brass</div>
+              </div>
+            </div>
+            <span class="price small">$299.00</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-secondary rounded-pill" style="position:relative;top:-8px;left:-4px;font-size:.7rem;">1</span>
+              <span style="font-size:1.4rem;">⚡</span>
+              <div>
+                <div class="small fw-semibold">Smart Edison Bulb Set</div>
+                <div class="text-muted" style="font-size:0.75rem;">Warm White 4-pack</div>
+              </div>
+            </div>
+            <span class="price small">$89.00</span>
+          </div>
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-between mb-1 small">
+          <span>Subtotal</span><span>$388.00</span>
+        </div>
+        <div class="d-flex justify-content-between mb-1 small text-muted">
+          <span>Shipping</span><span class="text-success">Free</span>
+        </div>
+        <div class="d-flex justify-content-between mb-1 small text-muted">
+          <span>Tax</span><span>$30.24</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold">
+          <span>Total</span><span class="price">$418.24</span>
+        </div>
+        <div class="text-muted small mt-1">USD</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container text-center text-muted small">
+    <p class="mb-0">© 2024 Luminary Home. Test site for GTM benchmark purposes.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function() {
+
+  // begin_checkout on page load
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: 'begin_checkout',
+    ecommerce: {
+      currency: 'USD',
+      value: checkoutCart.total,
+      coupon: checkoutCart.coupon,
+      items: checkoutCart.items
+    }
+  });
+
+  // Express checkout clicks
+  document.querySelectorAll('.express-checkout-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      dataLayer.push({ event: 'payment_method_selected', method: this.dataset.method, step: 'express' });
+    });
+  });
+
+  // Shipping method change
+  document.querySelectorAll('.shipping-method-radio').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('.payment-method-card').forEach(function(c){ c.classList.remove('selected'); });
+      this.closest('.payment-method-card').classList.add('selected');
+      var method = this.value;
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'add_shipping_info',
+        ecommerce: {
+          currency: 'USD',
+          value: checkoutCart.total,
+          shipping_tier: method === 'free' ? 'Standard' : 'Express',
+          coupon: checkoutCart.coupon,
+          items: checkoutCart.items
+        }
+      });
+    });
+  });
+
+  // Payment method selection
+  document.querySelectorAll('[data-method]').forEach(function(card) {
+    card.addEventListener('click', function() {
+      document.querySelectorAll('[data-method]').forEach(function(c){ c.classList.remove('selected'); });
+      this.classList.add('selected');
+      var method = this.dataset.method;
+      dataLayer.push({ event: 'payment_method_selected', method: method, step: 'checkout' });
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'add_payment_info',
+        ecommerce: {
+          currency: 'USD',
+          value: checkoutCart.total,
+          payment_type: method === 'credit_card' ? 'Credit Card' : 'Buy Now Pay Later',
+          coupon: checkoutCart.coupon,
+          items: checkoutCart.items
+        }
+      });
+    });
+  });
+
+  // Field interaction tracking
+  var fieldInteracted = {};
+  document.querySelectorAll('.checkout-field').forEach(function(field) {
+    field.addEventListener('focus', function() {
+      if (!fieldInteracted[this.id]) {
+        fieldInteracted[this.id] = true;
+        dataLayer.push({ event: 'checkout_field_interaction', field_name: this.name || this.id, checkout_step: 'shipping' });
+      }
+    });
+  });
+
+  // Email field blur — fire add_shipping_info step 1
+  document.getElementById('email').addEventListener('blur', function() {
+    if (this.value && this.value.includes('@')) {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'checkout_step_complete',
+        checkout_step: 'contact',
+        email_provided: true
+      });
+    }
+  });
+
+  // Zip complete → fire add_shipping_info
+  document.getElementById('zip').addEventListener('blur', function() {
+    if (this.value.match(/^\d{5}$/)) {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'add_shipping_info',
+        ecommerce: {
+          currency: 'USD',
+          value: checkoutCart.total,
+          shipping_tier: 'Standard',
+          coupon: checkoutCart.coupon,
+          items: checkoutCart.items
+        }
+      });
+    }
+  });
+
+  // Card number interaction → add_payment_info
+  document.getElementById('card-number').addEventListener('blur', function() {
+    if (this.value.length >= 15) {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'add_payment_info',
+        ecommerce: {
+          currency: 'USD',
+          value: checkoutCart.total,
+          payment_type: 'Credit Card',
+          coupon: checkoutCart.coupon,
+          items: checkoutCart.items
+        }
+      });
+    }
+  });
+
+  // Place order button
+  document.getElementById('place-order-btn').addEventListener('click', function() {
+    // Validate minimal required fields
+    var email = document.getElementById('email').value;
+    var firstName = document.getElementById('first-name').value;
+    if (!email || !firstName) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Generate transaction ID (in real app this comes from server)
+    var txnId = 'LH-' + Date.now().toString().slice(-8);
+
+    // Store for confirmation page
+    sessionStorage.setItem('lh_txn_id', txnId);
+    sessionStorage.setItem('lh_customer_email', email);
+    sessionStorage.setItem('lh_customer_name', firstName + ' ' + document.getElementById('last-name').value);
+
+    // purchase event
+    dataLayer.push({ ecommerce: null });
+    dataLayer.push({
+      event: 'purchase',
+      ecommerce: {
+        transaction_id: txnId,
+        value: checkoutCart.total,
+        tax: checkoutCart.tax,
+        shipping: checkoutCart.shipping,
+        currency: 'USD',
+        coupon: checkoutCart.coupon,
+        items: checkoutCart.items
+      }
+    });
+
+    window.location.href = 'confirmation.html?txn=' + txnId;
+  });
+
+})();
+</script>
+</body>
+</html>

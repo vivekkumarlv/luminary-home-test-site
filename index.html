@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Luminary Home — Premium lighting fixtures and home decor. Shop ceiling lights, floor lamps, wall sconces and smart lighting solutions.">
+  <title>Luminary Home | Premium Lighting & Home Decor</title>
+  <link rel="canonical" href="https://luminaryhome.test/index.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    :root { --brand: #b8860b; --brand-dark: #8b6508; }
+    body { font-family: 'Georgia', serif; }
+    .navbar-brand { font-size: 1.4rem; font-weight: 700; color: var(--brand) !important; letter-spacing: 0.05em; }
+    .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 520px; display: flex; align-items: center; }
+    .hero h1 { font-size: 3rem; color: #fff; }
+    .hero p { color: rgba(255,255,255,0.8); font-size: 1.2rem; }
+    .promo-banner { background: var(--brand); color: #fff; padding: 12px; text-align: center; font-size: 0.9rem; }
+    .product-card { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: 1px solid #eee; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+    .product-card .badge-new { background: var(--brand); }
+    .price { font-size: 1.1rem; font-weight: 600; color: var(--brand-dark); }
+    .original-price { text-decoration: line-through; color: #999; font-size: 0.9rem; }
+    .section-title { border-bottom: 2px solid var(--brand); display: inline-block; padding-bottom: 4px; }
+    .newsletter-section { background: #f8f4ee; }
+    .btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+    .category-card { position: relative; overflow: hidden; border-radius: 8px; }
+    .category-card img { width: 100%; height: 200px; object-fit: cover; }
+    .category-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 16px; color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- GTM: dataLayer initialization + page metadata -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  // Consent Mode v2 default — fires BEFORE GTM snippet
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+
+  // Page metadata push
+  dataLayer.push({
+    'event': 'page_meta',
+    'page_type': 'home',
+    'page_category': null,
+    'user': {
+      'logged_in': false,
+      'id_hashed': null,
+      'email_hashed': null,
+      'customer_type': 'new'
+    },
+    'consent': {
+      'analytics': 'pending',
+      'advertising': 'pending'
+    }
+  });
+</script>
+
+<!-- GTM Snippet (placeholder ID) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
+
+<!-- Promo Banner -->
+<div class="promo-banner" id="promo-banner" data-promotion-id="SUMMER_SALE_2024" data-promotion-name="Summer Sale">
+  🌟 Summer Sale — Up to 30% off select lighting. Free shipping on orders over $150.
+  <a href="products.html?filter=sale" class="text-white ms-2 fw-bold">Shop Sale →</a>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LUMINARY HOME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=ceiling" data-category="ceiling">Ceiling Lights</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=floor" data-category="floor">Floor Lamps</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=wall" data-category="wall">Wall Sconces</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=table" data-category="table">Table Lamps</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=smart" data-category="smart">Smart Lighting</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <form class="d-flex" id="search-form" role="search">
+          <input class="form-control form-control-sm me-2" type="search" id="search-input" placeholder="Search lighting..." aria-label="Search">
+          <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+        </form>
+        <a href="cart.html" class="btn btn-sm btn-brand" id="cart-icon">
+          Cart (<span id="cart-count">2</span>)
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Hero Section -->
+<section class="hero" id="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1>Illuminate Your World</h1>
+        <p class="my-4">Curated lighting that transforms spaces. Handcrafted fixtures from independent designers worldwide.</p>
+        <div class="d-flex gap-3">
+          <a href="products.html" class="btn btn-brand btn-lg" id="hero-cta-shop">Shop Collection</a>
+          <a href="#consultation-section" class="btn btn-outline-light btn-lg" id="hero-cta-consult">Free Consultation</a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center text-white">
+        <div class="p-5 border border-white border-opacity-25 rounded">
+          <div style="font-size:5rem;">💡</div>
+          <p class="mt-3 opacity-75">Featured: Artisan Pendant Collection 2024</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5" id="categories-section">
+  <div class="container">
+    <h2 class="mb-4"><span class="section-title">Shop by Category</span></h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <a href="products.html?cat=ceiling" class="text-decoration-none category-link" data-category="ceiling">
+          <div class="category-card bg-light">
+            <div style="height:200px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:4rem;">🏮</div>
+            <div class="overlay"><h5 class="mb-0">Ceiling Lights</h5></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="products.html?cat=floor" class="text-decoration-none category-link" data-category="floor">
+          <div class="category-card bg-light">
+            <div style="height:200px;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;font-size:4rem;">🕯️</div>
+            <div class="overlay"><h5 class="mb-0">Floor Lamps</h5></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="products.html?cat=smart" class="text-decoration-none category-link" data-category="smart">
+          <div class="category-card bg-light">
+            <div style="height:200px;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;font-size:4rem;">⚡</div>
+            <div class="overlay"><h5 class="mb-0">Smart Lighting</h5></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-5 bg-light" id="featured-products">
+  <div class="container">
+    <h2 class="mb-4"><span class="section-title">Featured Products</span></h2>
+    <div class="row g-4" id="product-grid">
+
+      <div class="col-md-3">
+        <div class="card product-card h-100 product-item"
+             data-product-id="SKU-001"
+             data-product-name="Artisan Pendant Light"
+             data-price="299.00"
+             data-category="Ceiling Lights"
+             data-brand="Luminary Home"
+             data-variant="Brass">
+          <div class="card-body text-center">
+            <div style="font-size:3rem;padding:20px;">🔆</div>
+            <span class="badge badge-new bg-warning text-dark mb-2">New</span>
+            <h6 class="card-title">Artisan Pendant Light</h6>
+            <p class="text-muted small">Brass finish, E26 socket</p>
+            <div class="price">$299.00</div>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="product.html?id=SKU-001" class="btn btn-brand btn-sm w-100 view-product-btn">View Product</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card product-card h-100 product-item"
+             data-product-id="SKU-007"
+             data-product-name="Nordic Arc Floor Lamp"
+             data-price="549.00"
+             data-category="Floor Lamps"
+             data-brand="Luminary Home"
+             data-variant="Matte Black">
+          <div class="card-body text-center">
+            <div style="font-size:3rem;padding:20px;">🪔</div>
+            <span class="badge bg-danger mb-2">Sale</span>
+            <h6 class="card-title">Nordic Arc Floor Lamp</h6>
+            <p class="text-muted small">Matte black, dimmable</p>
+            <div>
+              <span class="price">$439.00</span>
+              <span class="original-price ms-1">$549.00</span>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="product.html?id=SKU-007" class="btn btn-brand btn-sm w-100 view-product-btn">View Product</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card product-card h-100 product-item"
+             data-product-id="SKU-012"
+             data-product-name="Smart Edison Bulb Set"
+             data-price="89.00"
+             data-category="Smart Lighting"
+             data-brand="Luminary Home"
+             data-variant="Warm White 4-pack">
+          <div class="card-body text-center">
+            <div style="font-size:3rem;padding:20px;">💡</div>
+            <span class="badge bg-info text-dark mb-2">Bestseller</span>
+            <h6 class="card-title">Smart Edison Bulb Set</h6>
+            <p class="text-muted small">App-controlled, 4-pack</p>
+            <div class="price">$89.00</div>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="product.html?id=SKU-012" class="btn btn-brand btn-sm w-100 view-product-btn">View Product</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card product-card h-100 product-item"
+             data-product-id="SKU-019"
+             data-product-name="Venetian Wall Sconce Pair"
+             data-price="189.00"
+             data-category="Wall Sconces"
+             data-brand="Luminary Home"
+             data-variant="Antique Gold">
+          <div class="card-body text-center">
+            <div style="font-size:3rem;padding:20px;">🕯️</div>
+            <h6 class="card-title mt-3">Venetian Wall Sconce Pair</h6>
+            <p class="text-muted small">Antique gold, set of 2</p>
+            <div class="price">$189.00</div>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="product.html?id=SKU-019" class="btn btn-brand btn-sm w-100 view-product-btn">View Product</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="products.html" class="btn btn-outline-secondary btn-lg" id="view-all-btn">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-5 newsletter-section" id="consultation-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h3>Get Design Advice — Free</h3>
+        <p class="text-muted">Our lighting experts help you choose the perfect fixtures for your space. No purchase required.</p>
+        <form id="consultation-form" class="row g-2" novalidate>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="consult-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" id="consult-email" name="email" placeholder="Email address" required>
+          </div>
+          <div class="col-12">
+            <input type="text" class="form-control" id="consult-room" name="room_type" placeholder="What room? (e.g. living room, kitchen)">
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-brand" id="consultation-submit-btn">Request Free Consultation</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 mt-4 mt-md-0">
+        <h3>Stay Inspired</h3>
+        <p class="text-muted">New arrivals, design trends, and exclusive offers — straight to your inbox.</p>
+        <form id="newsletter-form" class="d-flex gap-2" novalidate>
+          <input type="email" class="form-control" id="newsletter-email" name="email" placeholder="Your email address" required>
+          <button type="submit" class="btn btn-brand text-nowrap" id="newsletter-submit-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video Section -->
+<section class="py-5" id="video-section">
+  <div class="container text-center">
+    <h2 class="mb-4"><span class="section-title">See the Difference</span></h2>
+    <p class="text-muted mb-4">Watch how the right lighting transforms any room.</p>
+    <div class="ratio ratio-16x9 mx-auto" style="max-width:640px;" id="brand-video-wrapper">
+      <iframe id="brand-video"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1"
+              title="Luminary Home — Transform Your Space"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <h5 class="text-warning">LUMINARY HOME</h5>
+        <p class="small text-muted">Premium lighting & home decor. Handcrafted quality, delivered to your door.</p>
+      </div>
+      <div class="col-md-3">
+        <h6>Shop</h6>
+        <ul class="list-unstyled small">
+          <li><a href="products.html?cat=ceiling" class="text-muted text-decoration-none">Ceiling Lights</a></li>
+          <li><a href="products.html?cat=floor" class="text-muted text-decoration-none">Floor Lamps</a></li>
+          <li><a href="products.html?cat=wall" class="text-muted text-decoration-none">Wall Sconces</a></li>
+          <li><a href="products.html?cat=smart" class="text-muted text-decoration-none">Smart Lighting</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Help</h6>
+        <ul class="list-unstyled small">
+          <li><a href="#" class="text-muted text-decoration-none outbound-link" data-url="https://help.luminaryhome.test">Help Center</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Shipping & Returns</a></li>
+          <li><a href="#" class="text-muted text-decoration-none">Installation Guide</a></li>
+          <li><a href="tel:+18005551234" class="text-muted text-decoration-none phone-link" data-phone="+18005551234">1-800-555-1234</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h6>Follow Us</h6>
+        <div class="d-flex gap-2">
+          <a href="https://instagram.com/luminaryhome" class="btn btn-sm btn-outline-light outbound-link" data-platform="instagram">Instagram</a>
+          <a href="https://pinterest.com/luminaryhome" class="btn btn-sm btn-outline-light outbound-link" data-platform="pinterest">Pinterest</a>
+        </div>
+      </div>
+    </div>
+    <hr class="border-secondary mt-4">
+    <div class="d-flex justify-content-between small text-muted">
+      <span>© 2024 Luminary Home. All rights reserved.</span>
+      <div class="d-flex gap-3">
+        <a href="#" class="text-muted text-decoration-none">Privacy Policy</a>
+        <a href="#" class="text-muted text-decoration-none">Cookie Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function() {
+
+  // Fire view_promotion for hero banner
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: 'view_promotion',
+    ecommerce: {
+      promotions: [{
+        promotion_id: 'SUMMER_SALE_2024',
+        promotion_name: 'Summer Sale — Up to 30% Off',
+        creative_name: 'hero_banner',
+        creative_slot: 'home_hero'
+      }]
+    }
+  });
+
+  // Fire view_item_list for featured products
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: 'view_item_list',
+    ecommerce: {
+      item_list_id: 'featured_products',
+      item_list_name: 'Featured Products',
+      items: [
+        { item_id: 'SKU-001', item_name: 'Artisan Pendant Light', item_brand: 'Luminary Home', item_category: 'Ceiling Lights', item_variant: 'Brass', price: 299.00, currency: 'USD', index: 1, quantity: 1 },
+        { item_id: 'SKU-007', item_name: 'Nordic Arc Floor Lamp', item_brand: 'Luminary Home', item_category: 'Floor Lamps', item_variant: 'Matte Black', price: 439.00, currency: 'USD', index: 2, quantity: 1 },
+        { item_id: 'SKU-012', item_name: 'Smart Edison Bulb Set', item_brand: 'Luminary Home', item_category: 'Smart Lighting', item_variant: 'Warm White 4-pack', price: 89.00, currency: 'USD', index: 3, quantity: 1 },
+        { item_id: 'SKU-019', item_name: 'Venetian Wall Sconce Pair', item_brand: 'Luminary Home', item_category: 'Wall Sconces', item_variant: 'Antique Gold', price: 189.00, currency: 'USD', index: 4, quantity: 1 }
+      ]
+    }
+  });
+
+  // Product card click → select_item
+  document.querySelectorAll('.product-item, .view-product-btn').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      var card = this.closest('.product-item') || this.parentElement.parentElement;
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'select_item',
+        ecommerce: {
+          item_list_id: 'featured_products',
+          item_list_name: 'Featured Products',
+          items: [{
+            item_id: card.dataset.productId,
+            item_name: card.dataset.productName,
+            item_brand: card.dataset.brand || 'Luminary Home',
+            item_category: card.dataset.category,
+            item_variant: card.dataset.variant,
+            price: parseFloat(card.dataset.price),
+            currency: 'USD',
+            index: 1,
+            quantity: 1
+          }]
+        }
+      });
+    });
+  });
+
+  // Promo banner click → select_promotion
+  var promoBanner = document.querySelector('.promo-banner a');
+  if (promoBanner) {
+    promoBanner.addEventListener('click', function() {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'select_promotion',
+        ecommerce: {
+          promotions: [{
+            promotion_id: 'SUMMER_SALE_2024',
+            promotion_name: 'Summer Sale — Up to 30% Off',
+            creative_name: 'hero_banner',
+            creative_slot: 'home_hero'
+          }]
+        }
+      });
+    });
+  }
+
+  // Search form submission
+  document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var term = document.getElementById('search-input').value.trim();
+    if (term) {
+      dataLayer.push({ event: 'search', search_term: term, search_results_count: 0 });
+      window.location.href = 'products.html?q=' + encodeURIComponent(term);
+    }
+  });
+
+  // Newsletter signup
+  document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('newsletter-email').value;
+    if (email) {
+      dataLayer.push({ event: 'generate_lead', lead_type: 'newsletter', form_id: 'newsletter-form' });
+      alert('Thank you for subscribing!');
+      this.reset();
+    }
+  });
+
+  // Consultation form submit
+  document.getElementById('consultation-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    dataLayer.push({ event: 'generate_lead', lead_type: 'consultation', form_id: 'consultation-form' });
+    alert('Thank you! A designer will contact you within 24 hours.');
+    this.reset();
+  });
+
+  // Phone click tracking
+  document.querySelectorAll('.phone-link').forEach(function(el) {
+    el.addEventListener('click', function() {
+      dataLayer.push({ event: 'phone_click', phone_number: this.dataset.phone, click_location: 'footer' });
+    });
+  });
+
+  // Outbound link tracking
+  document.querySelectorAll('.outbound-link').forEach(function(el) {
+    el.addEventListener('click', function() {
+      dataLayer.push({ event: 'outbound_link_click', link_url: this.href || this.dataset.url, link_text: this.innerText });
+    });
+  });
+
+  // CMP consent simulation (in real site this comes from OneTrust/Cookiebot)
+  setTimeout(function() {
+    dataLayer.push({
+      event: 'cmp_consent_granted',
+      consent: { analytics: 'granted', advertising: 'denied' }
+    });
+    dataLayer.push({
+      'consent.analytics': 'granted',
+      'consent.advertising': 'denied'
+    });
+  }, 2000);
+
+})();
+</script>
+</body>
+</html>

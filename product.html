@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Pendant Light — Luminary Home</title>
+  <link rel="canonical" href="https://luminaryhome.test/product.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    :root { --brand: #b8860b; --brand-dark: #8b6508; }
+    body { font-family: 'Georgia', serif; }
+    .navbar-brand { font-size: 1.4rem; font-weight: 700; color: var(--brand) !important; }
+    .btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+    .price { font-size: 1.6rem; font-weight: 700; color: var(--brand-dark); }
+    .original-price { text-decoration: line-through; color: #999; }
+    .product-image-main { background: linear-gradient(135deg,#f8f4ee,#ede8dc); min-height: 420px; display:flex;align-items:center;justify-content:center;font-size:8rem;border-radius:8px; }
+    .thumbnail { background: #f8f4ee; height:80px;display:flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;border:2px solid transparent; }
+    .thumbnail.active { border-color: var(--brand); }
+    .variant-btn { border: 2px solid #ddd; padding: 6px 12px; border-radius: 4px; cursor: pointer; background: #fff; transition: 0.15s; }
+    .variant-btn.active, .variant-btn:hover { border-color: var(--brand); color: var(--brand-dark); }
+    .qty-btn { width: 36px; height: 36px; border: 1px solid #ddd; background: #fff; }
+    .qty-btn:hover { background: #f8f4ee; }
+    .qty-display { width: 50px; text-align: center; border: 1px solid #ddd; }
+    .trust-badge { font-size: 0.85rem; color: #666; }
+    .review-star { color: var(--brand); }
+    .sticky-add-to-cart { position: sticky; bottom: 0; background: #fff; border-top: 1px solid #eee; padding: 12px 0; z-index: 100; }
+    .tab-content { padding-top: 20px; }
+  </style>
+</head>
+<body>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'analytics_storage': 'denied',
+    'ad_user_data': 'denied', 'ad_personalization': 'denied', 'wait_for_update': 500
+  });
+
+  // Product catalog — in real site this comes from server
+  var PRODUCTS = {
+    'SKU-001': { id:'SKU-001', name:'Artisan Pendant Light', brand:'Luminary Home', category:'Ceiling Lights', price:299.00, compareAtPrice:null, variants:['Brass','Bronze','Nickel'], inStock:true, rating:4.9, reviewCount:47, sku:'LH-AP-001-BRS', gtinLast4:'7421' },
+    'SKU-007': { id:'SKU-007', name:'Nordic Arc Floor Lamp', brand:'Luminary Home', category:'Floor Lamps', price:439.00, compareAtPrice:549.00, variants:['Matte Black','Brushed Gold'], inStock:true, rating:4.8, reviewCount:112, sku:'LH-NF-007-BLK', gtinLast4:'3892' },
+    'SKU-012': { id:'SKU-012', name:'Smart Edison Bulb Set', brand:'Luminary Home', category:'Smart Lighting', price:89.00, compareAtPrice:null, variants:['Warm White 4-pack','Cool White 4-pack','Color 2-pack'], inStock:true, rating:4.5, reviewCount:204, sku:'LH-SE-012-WW4', gtinLast4:'6614' },
+    'SKU-019': { id:'SKU-019', name:'Venetian Wall Sconce Pair', brand:'Luminary Home', category:'Wall Sconces', price:189.00, compareAtPrice:null, variants:['Antique Gold','Silver'], inStock:true, rating:4.7, reviewCount:56, sku:'LH-VW-019-AG', gtinLast4:'2203' }
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var productId = params.get('id') || 'SKU-001';
+  var product = PRODUCTS[productId] || PRODUCTS['SKU-001'];
+
+  dataLayer.push({
+    event: 'page_meta',
+    page_type: 'product',
+    page_category: product.category,
+    product_id: product.id,
+    product_name: product.name,
+    product_price: product.price,
+    user: { logged_in: false, id_hashed: null, email_hashed: null, customer_type: 'new' }
+  });
+</script>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LUMINARY HOME</a>
+    <div class="d-flex align-items-center gap-2">
+      <a href="cart.html" class="btn btn-sm btn-brand" id="cart-icon">Cart (<span id="cart-count">2</span>)</a>
+    </div>
+  </div>
+</nav>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="container py-4">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="products.html" id="breadcrumb-category-link">Lighting</a></li>
+      <li class="breadcrumb-item active" id="breadcrumb-product"></li>
+    </ol>
+  </nav>
+
+  <div class="row g-5">
+
+    <!-- Product Images -->
+    <div class="col-md-6">
+      <div class="product-image-main mb-3" id="product-main-image">
+        <span id="product-emoji">🔆</span>
+      </div>
+      <div class="row g-2" id="product-thumbnails">
+        <div class="col-3"><div class="thumbnail active" data-view="front">🔆</div></div>
+        <div class="col-3"><div class="thumbnail" data-view="side">✨</div></div>
+        <div class="col-3"><div class="thumbnail" data-view="room">🏠</div></div>
+        <div class="col-3"><div class="thumbnail" data-view="detail">🔍</div></div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <span class="badge bg-light text-dark border" id="product-category-badge">Ceiling Lights</span>
+        <span class="text-muted small" id="product-sku">SKU: LH-AP-001-BRS</span>
+      </div>
+
+      <h1 class="h2 mb-2" id="product-name">Artisan Pendant Light</h1>
+
+      <!-- Ratings -->
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div id="product-stars">⭐⭐⭐⭐⭐</div>
+        <a href="#reviews-tab-pane" class="text-muted small text-decoration-none" id="review-count-link">47 reviews</a>
+        <span class="text-success small" id="in-stock-badge">✓ In Stock</span>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-4">
+        <span class="price" id="product-price">$299.00</span>
+        <span class="original-price ms-2 d-none" id="product-compare-price"></span>
+        <span class="badge bg-danger ms-2 d-none" id="sale-badge">Sale</span>
+      </div>
+
+      <!-- Variant selector -->
+      <div class="mb-3" id="variant-section">
+        <label class="fw-semibold d-block mb-2">Finish: <span id="selected-variant">Brass</span></label>
+        <div class="d-flex gap-2 flex-wrap" id="variant-buttons"></div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="mb-4">
+        <label class="fw-semibold d-block mb-2">Quantity:</label>
+        <div class="d-flex align-items-center gap-0">
+          <button class="qty-btn rounded-start" id="qty-minus">-</button>
+          <input type="number" class="qty-display" id="qty-input" value="1" min="1" max="99" readonly>
+          <button class="qty-btn rounded-end" id="qty-plus">+</button>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="d-grid gap-2 mb-4">
+        <button class="btn btn-brand btn-lg" id="add-to-cart-btn">
+          Add to Cart
+        </button>
+        <button class="btn btn-outline-secondary btn-lg" id="add-to-wishlist-btn">
+          ♡ Save to Wishlist
+        </button>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="d-flex gap-4 mb-4">
+        <div class="trust-badge text-center">
+          <div>🚚</div><div>Free shipping $150+</div>
+        </div>
+        <div class="trust-badge text-center">
+          <div>↩️</div><div>30-day returns</div>
+        </div>
+        <div class="trust-badge text-center">
+          <div>🔒</div><div>Secure checkout</div>
+        </div>
+        <div class="trust-badge text-center">
+          <div>🏅</div><div>2-year warranty</div>
+        </div>
+      </div>
+
+      <!-- Share -->
+      <div class="d-flex gap-2" id="share-buttons">
+        <button class="btn btn-sm btn-outline-secondary share-btn" data-platform="facebook">Share</button>
+        <button class="btn btn-sm btn-outline-secondary share-btn" data-platform="pinterest">Pin</button>
+        <button class="btn btn-sm btn-outline-secondary share-btn" data-platform="email">Email</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product detail tabs -->
+  <div class="mt-5">
+    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+      <li class="nav-item"><button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button">Description</button></li>
+      <li class="nav-item"><button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs-tab-pane" type="button">Specifications</button></li>
+      <li class="nav-item"><button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping-tab-pane" type="button">Shipping & Returns</button></li>
+      <li class="nav-item"><button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane" type="button">Reviews (<span id="review-count-tab">47</span>)</button></li>
+    </ul>
+    <div class="tab-content" id="productTabsContent">
+      <div class="tab-pane fade show active" id="description-tab-pane">
+        <p>The Artisan Pendant Light combines traditional craftsmanship with modern design. Handcrafted by skilled artisans, each piece features a hand-spun brass shade that creates a warm, ambient glow perfect for dining rooms, kitchen islands, and entryways.</p>
+        <ul>
+          <li>Hand-spun brass finish with natural variation</li>
+          <li>Compatible with E26 medium base bulbs up to 60W</li>
+          <li>Includes adjustable ceiling canopy for 8–16 ft ceilings</li>
+          <li>UL Listed for damp locations</li>
+          <li>Dimmable when used with compatible dimmer switch</li>
+        </ul>
+      </div>
+      <div class="tab-pane fade" id="specs-tab-pane">
+        <table class="table table-sm">
+          <tbody>
+            <tr><td>Dimensions</td><td>8" diameter × 12" height</td></tr>
+            <tr><td>Weight</td><td>3.2 lbs</td></tr>
+            <tr><td>Material</td><td>Spun brass, steel hardware</td></tr>
+            <tr><td>Socket</td><td>E26 medium base</td></tr>
+            <tr><td>Max Wattage</td><td>60W incandescent / 15W LED equivalent</td></tr>
+            <tr><td>Voltage</td><td>120V AC</td></tr>
+            <tr><td>Cord Length</td><td>Adjustable 3–8 feet</td></tr>
+            <tr><td>Certification</td><td>UL Listed, ETL, Energy Star compatible</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="shipping-tab-pane">
+        <p><strong>Standard Shipping:</strong> 5–7 business days. Free on orders over $150.</p>
+        <p><strong>Express Shipping:</strong> 2–3 business days. $24.95.</p>
+        <p><strong>Returns:</strong> We accept returns within 30 days of delivery for unused items in original packaging. Contact us at returns@luminaryhome.test to initiate a return.</p>
+        <p><strong>Installation Note:</strong> We recommend professional installation. Improper installation voids warranty.</p>
+      </div>
+      <div class="tab-pane fade" id="reviews-tab-pane">
+        <div class="mb-4">
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <div style="font-size:3rem;font-weight:700;color:var(--brand);">4.9</div>
+              <div>⭐⭐⭐⭐⭐</div>
+              <div class="text-muted small">Based on 47 reviews</div>
+            </div>
+            <div class="col-md-9">
+              <div class="mb-1 d-flex align-items-center gap-2">
+                <span class="small">5 ★</span>
+                <div class="progress flex-grow-1" style="height:10px;"><div class="progress-bar bg-warning" style="width:85%"></div></div>
+                <span class="small">40</span>
+              </div>
+              <div class="mb-1 d-flex align-items-center gap-2">
+                <span class="small">4 ★</span>
+                <div class="progress flex-grow-1" style="height:10px;"><div class="progress-bar bg-warning" style="width:10%"></div></div>
+                <span class="small">5</span>
+              </div>
+              <div class="mb-1 d-flex align-items-center gap-2">
+                <span class="small">3 ★</span>
+                <div class="progress flex-grow-1" style="height:10px;"><div class="progress-bar bg-warning" style="width:4%"></div></div>
+                <span class="small">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="review-item border-bottom pb-3 mb-3">
+          <div class="d-flex justify-content-between">
+            <strong>Sarah M.</strong>
+            <span class="text-muted small">October 2024</span>
+          </div>
+          <div class="review-star">⭐⭐⭐⭐⭐</div>
+          <p class="mt-1 small">Absolutely stunning over our kitchen island. The brass has a beautiful warmth and the quality is exceptional. Worth every penny.</p>
+          <div class="small text-muted">Was this helpful? <button class="btn btn-sm btn-link p-0 review-helpful-btn" data-review-id="review-001">Yes (12)</button></div>
+        </div>
+        <div class="review-item border-bottom pb-3 mb-3">
+          <div class="d-flex justify-content-between">
+            <strong>James T.</strong>
+            <span class="text-muted small">September 2024</span>
+          </div>
+          <div class="review-star">⭐⭐⭐⭐⭐</div>
+          <p class="mt-1 small">Second purchase from Luminary Home. The artisan quality really shows — this is not mass-produced. Installation was straightforward with the included instructions.</p>
+          <div class="small text-muted">Was this helpful? <button class="btn btn-sm btn-link p-0 review-helpful-btn" data-review-id="review-002">Yes (8)</button></div>
+        </div>
+        <div class="mt-3">
+          <button class="btn btn-outline-secondary btn-sm" id="write-review-btn">Write a Review</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <section class="mt-5" id="related-products">
+    <h3 class="mb-4">You May Also Like</h3>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card h-100 related-product-item" data-product-id="SKU-002" data-product-name="Crystal Chandelier 5-Light" data-price="899.00" data-category="Ceiling Lights" data-variant="Chrome">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;padding:12px;">✨</div>
+            <h6>Crystal Chandelier 5-Light</h6>
+            <div class="price">$899.00</div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <a href="product.html?id=SKU-002" class="btn btn-outline-secondary btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 related-product-item" data-product-id="SKU-036" data-product-name="Rattan Woven Pendant" data-price="159.00" data-category="Ceiling Lights" data-variant="Natural">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;padding:12px;">🌿</div>
+            <h6>Rattan Woven Pendant</h6>
+            <div class="price">$159.00</div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <a href="product.html?id=SKU-036" class="btn btn-outline-secondary btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 related-product-item" data-product-id="SKU-003" data-product-name="Minimalist Track Light Kit" data-price="149.00" data-category="Ceiling Lights" data-variant="Matte White">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;padding:12px;">💡</div>
+            <h6>Minimalist Track Light Kit</h6>
+            <div class="price">$149.00</div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <a href="product.html?id=SKU-003" class="btn btn-outline-secondary btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card h-100 related-product-item" data-product-id="SKU-019" data-product-name="Venetian Wall Sconce Pair" data-price="189.00" data-category="Wall Sconces" data-variant="Antique Gold">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;padding:12px;">🕯️</div>
+            <h6>Venetian Wall Sconce Pair</h6>
+            <div class="price">$189.00</div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <a href="product.html?id=SKU-019" class="btn btn-outline-secondary btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="sticky-add-to-cart d-none d-lg-block" id="sticky-atc">
+  <div class="container d-flex align-items-center justify-content-between">
+    <div>
+      <span class="fw-bold" id="sticky-product-name">Artisan Pendant Light</span>
+      <span class="text-muted ms-2" id="sticky-variant"></span>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <span class="price" id="sticky-price">$299.00</span>
+      <button class="btn btn-brand" id="sticky-add-to-cart-btn">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container text-center text-muted small">
+    <p class="mb-0">© 2024 Luminary Home. Test site for GTM benchmark purposes.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function() {
+  // Populate page with product data
+  document.getElementById('product-name').textContent = product.name;
+  document.getElementById('product-category-badge').textContent = product.category;
+  document.getElementById('product-sku').textContent = 'SKU: ' + product.sku;
+  document.getElementById('product-price').textContent = '$' + product.price.toFixed(2);
+  document.getElementById('breadcrumb-product').textContent = product.name;
+  document.getElementById('review-count-link').textContent = product.reviewCount + ' reviews';
+  document.getElementById('review-count-tab').textContent = product.reviewCount;
+  document.getElementById('sticky-product-name').textContent = product.name;
+  document.getElementById('sticky-price').textContent = '$' + product.price.toFixed(2);
+  document.title = product.name + ' — Luminary Home';
+
+  if (product.compareAtPrice) {
+    document.getElementById('product-compare-price').textContent = '$' + product.compareAtPrice.toFixed(2);
+    document.getElementById('product-compare-price').classList.remove('d-none');
+    document.getElementById('sale-badge').classList.remove('d-none');
+  }
+
+  // Variant buttons
+  var selectedVariant = product.variants[0];
+  var variantContainer = document.getElementById('variant-buttons');
+  product.variants.forEach(function(v) {
+    var btn = document.createElement('button');
+    btn.className = 'variant-btn' + (v === selectedVariant ? ' active' : '');
+    btn.textContent = v;
+    btn.dataset.variant = v;
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.variant-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      selectedVariant = this.dataset.variant;
+      document.getElementById('selected-variant').textContent = selectedVariant;
+      document.getElementById('sticky-variant').textContent = selectedVariant;
+      dataLayer.push({ event: 'variant_selected', item_id: product.id, item_name: product.name, selected_variant: selectedVariant });
+    });
+    variantContainer.appendChild(btn);
+  });
+  document.getElementById('selected-variant').textContent = selectedVariant;
+
+  // Quantity
+  var qty = 1;
+  document.getElementById('qty-plus').addEventListener('click', function() {
+    qty = Math.min(qty + 1, 99);
+    document.getElementById('qty-input').value = qty;
+  });
+  document.getElementById('qty-minus').addEventListener('click', function() {
+    qty = Math.max(qty - 1, 1);
+    document.getElementById('qty-input').value = qty;
+  });
+
+  // Thumbnail click
+  document.querySelectorAll('.thumbnail').forEach(function(thumb) {
+    thumb.addEventListener('click', function() {
+      document.querySelectorAll('.thumbnail').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      dataLayer.push({ event: 'image_view', item_id: product.id, image_view: this.dataset.view });
+    });
+  });
+
+  // Tab change tracking
+  document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function(tab) {
+    tab.addEventListener('shown.bs.tab', function(e) {
+      dataLayer.push({ event: 'tab_click', tab_name: e.target.id, item_id: product.id });
+    });
+  });
+
+  // view_item — fire after product data populated
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: 'view_item',
+    ecommerce: {
+      currency: 'USD',
+      value: product.price,
+      items: [{
+        item_id: product.id,
+        item_name: product.name,
+        item_brand: product.brand,
+        item_category: product.category,
+        item_variant: selectedVariant,
+        price: product.price,
+        currency: 'USD',
+        quantity: 1
+      }]
+    }
+  });
+
+  function getAtcItem() {
+    return {
+      item_id: product.id,
+      item_name: product.name,
+      item_brand: product.brand,
+      item_category: product.category,
+      item_variant: selectedVariant,
+      price: product.price,
+      currency: 'USD',
+      quantity: qty
+    };
+  }
+
+  function fireAddToCart() {
+    dataLayer.push({ ecommerce: null });
+    dataLayer.push({
+      event: 'add_to_cart',
+      ecommerce: {
+        currency: 'USD',
+        value: product.price * qty,
+        items: [getAtcItem()]
+      }
+    });
+    var count = parseInt(document.getElementById('cart-count').textContent) + qty;
+    document.getElementById('cart-count').textContent = count;
+    window.location.href = 'cart.html';
+  }
+
+  document.getElementById('add-to-cart-btn').addEventListener('click', fireAddToCart);
+  document.getElementById('sticky-add-to-cart-btn').addEventListener('click', fireAddToCart);
+
+  // Wishlist
+  document.getElementById('add-to-wishlist-btn').addEventListener('click', function() {
+    dataLayer.push({ event: 'add_to_wishlist', ecommerce: { currency: 'USD', value: product.price, items: [getAtcItem()] } });
+    this.textContent = '♥ Saved';
+    this.classList.add('btn-brand');
+  });
+
+  // Share
+  document.querySelectorAll('.share-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      dataLayer.push({ event: 'share', method: this.dataset.platform, content_type: 'product', item_id: product.id });
+    });
+  });
+
+  // Review helpful
+  document.querySelectorAll('.review-helpful-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      dataLayer.push({ event: 'review_helpful', review_id: this.dataset.reviewId, item_id: product.id });
+    });
+  });
+
+  // Write review button
+  document.getElementById('write-review-btn').addEventListener('click', function() {
+    dataLayer.push({ event: 'write_review_click', item_id: product.id });
+    alert('Review form coming soon!');
+  });
+
+  // Related products view_item_list
+  var relatedItems = [];
+  document.querySelectorAll('.related-product-item').forEach(function(card, idx) {
+    relatedItems.push({
+      item_id: card.dataset.productId,
+      item_name: card.dataset.productName,
+      item_brand: 'Luminary Home',
+      item_category: card.dataset.category,
+      item_variant: card.dataset.variant,
+      price: parseFloat(card.dataset.price),
+      currency: 'USD',
+      index: idx + 1,
+      quantity: 1
+    });
+  });
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({ event: 'view_item_list', ecommerce: { item_list_id: 'related_products', item_list_name: 'You May Also Like', items: relatedItems } });
+
+  // Related product click
+  document.querySelectorAll('.related-product-item').forEach(function(card, idx) {
+    card.addEventListener('click', function() {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'select_item',
+        ecommerce: {
+          item_list_id: 'related_products',
+          item_list_name: 'You May Also Like',
+          items: [{
+            item_id: card.dataset.productId, item_name: card.dataset.productName,
+            item_brand: 'Luminary Home', item_category: card.dataset.category,
+            item_variant: card.dataset.variant, price: parseFloat(card.dataset.price),
+            currency: 'USD', index: idx + 1, quantity: 1
+          }]
+        }
+      });
+    });
+  });
+
+  // Sticky ATC on scroll
+  var lastScrollY = 0;
+  window.addEventListener('scroll', function() {
+    var y = window.scrollY;
+    if (y > 400) { document.getElementById('sticky-atc').classList.remove('d-none'); }
+    else { document.getElementById('sticky-atc').classList.add('d-none'); }
+    // Scroll depth tracking
+    var pct = Math.round((y / (document.body.scrollHeight - window.innerHeight)) * 100);
+    if (pct >= 50 && lastScrollY < 50) {
+      dataLayer.push({ event: 'scroll_depth', depth_percent: 50, page_type: 'product' });
+    }
+    if (pct >= 90 && lastScrollY < 90) {
+      dataLayer.push({ event: 'scroll_depth', depth_percent: 90, page_type: 'product' });
+    }
+    lastScrollY = pct;
+  });
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+{
+  "site": {
+    "name": "Luminary Home",
+    "industry": "E-commerce — Home Decor / Lighting",
+    "currency": "USD",
+    "gtm_container": "GTM-LMHOME1",
+    "ga4_measurement_id": "G-LMHOME01"
+  },
+  "scoring_weights": {
+    "coverage": 0.4,
+    "quality": 0.4,
+    "sophistication": 0.2
+  },
+  "tiers": {
+    "T1": { "weight": 3, "description": "Mission-critical — without these the tracking is fundamentally broken" },
+    "T2": { "weight": 2, "description": "High-value — significant business impact" },
+    "T3": { "weight": 1, "description": "Good practice — completes the picture" }
+  },
+  "required_tags": [
+    {
+      "id": "TAG-001",
+      "name": "GA4 Configuration",
+      "tier": "T1",
+      "type": "gtag.js / GA4 Configuration Tag",
+      "trigger": "All Pages",
+      "fields": {
+        "measurementId": "G-LMHOME01",
+        "send_page_view": true,
+        "enhanced_measurement": true
+      },
+      "advanced": {
+        "consent_mode": "requires analytics_storage: granted"
+      }
+    },
+    {
+      "id": "TAG-002",
+      "name": "GA4 — Purchase",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = purchase",
+      "fields": {
+        "event_name": "purchase",
+        "send_to": "G-LMHOME01"
+      },
+      "parameters": {
+        "transaction_id": "{{DLV - transaction_id}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "tax": "{{DLV - ecommerce.tax}}",
+        "shipping": "{{DLV - ecommerce.shipping}}",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "coupon": "{{DLV - ecommerce.coupon}}",
+        "items": "{{DLV - ecommerce.items}}"
+      },
+      "dedup_required": true,
+      "dedup_method": "Custom HTML tag checks sessionStorage key lh_purchase_fired_{txnId} before pushing to GA4"
+    },
+    {
+      "id": "TAG-003",
+      "name": "GA4 — Add to Cart",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = add_to_cart",
+      "parameters": {
+        "event_name": "add_to_cart",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-004",
+      "name": "GA4 — View Item",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = view_item",
+      "parameters": {
+        "event_name": "view_item",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-005",
+      "name": "GA4 — Begin Checkout",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = begin_checkout",
+      "parameters": {
+        "event_name": "begin_checkout",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "coupon": "{{DLV - ecommerce.coupon}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-006",
+      "name": "GA4 — Add Shipping Info",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = add_shipping_info",
+      "parameters": {
+        "event_name": "add_shipping_info",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "shipping_tier": "{{DLV - ecommerce.shipping_tier}}",
+        "coupon": "{{DLV - ecommerce.coupon}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-007",
+      "name": "GA4 — Add Payment Info",
+      "tier": "T1",
+      "type": "GA4 Event Tag",
+      "trigger": "event = add_payment_info",
+      "parameters": {
+        "event_name": "add_payment_info",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "payment_type": "{{DLV - ecommerce.payment_type}}",
+        "coupon": "{{DLV - ecommerce.coupon}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-008",
+      "name": "GA4 — View Item List",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = view_item_list",
+      "parameters": {
+        "event_name": "view_item_list",
+        "item_list_id": "{{DLV - ecommerce.item_list_id}}",
+        "item_list_name": "{{DLV - ecommerce.item_list_name}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-009",
+      "name": "GA4 — Select Item",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = select_item",
+      "parameters": {
+        "event_name": "select_item",
+        "item_list_id": "{{DLV - ecommerce.item_list_id}}",
+        "item_list_name": "{{DLV - ecommerce.item_list_name}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-010",
+      "name": "GA4 — Remove from Cart",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = remove_from_cart",
+      "parameters": {
+        "event_name": "remove_from_cart",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-011",
+      "name": "GA4 — View Cart",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = view_cart",
+      "parameters": {
+        "event_name": "view_cart",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-012",
+      "name": "GA4 — View Promotion",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = view_promotion",
+      "parameters": {
+        "event_name": "view_promotion",
+        "promotions": "{{DLV - ecommerce.promotions}}"
+      }
+    },
+    {
+      "id": "TAG-013",
+      "name": "GA4 — Select Promotion",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = select_promotion",
+      "parameters": {
+        "event_name": "select_promotion",
+        "promotions": "{{DLV - ecommerce.promotions}}"
+      }
+    },
+    {
+      "id": "TAG-014",
+      "name": "GA4 — Generate Lead",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = generate_lead",
+      "parameters": {
+        "event_name": "generate_lead",
+        "lead_type": "{{DLV - lead_type}}",
+        "form_id": "{{DLV - form_id}}"
+      }
+    },
+    {
+      "id": "TAG-015",
+      "name": "GA4 — Search",
+      "tier": "T2",
+      "type": "GA4 Event Tag",
+      "trigger": "event = search",
+      "parameters": {
+        "event_name": "search",
+        "search_term": "{{DLV - search_term}}"
+      }
+    },
+    {
+      "id": "TAG-016",
+      "name": "GA4 — Add to Wishlist",
+      "tier": "T3",
+      "type": "GA4 Event Tag",
+      "trigger": "event = add_to_wishlist",
+      "parameters": {
+        "event_name": "add_to_wishlist",
+        "currency": "{{DLV - ecommerce.currency}}",
+        "value": "{{DLV - ecommerce.value}}",
+        "items": "{{DLV - ecommerce.items}}"
+      }
+    },
+    {
+      "id": "TAG-017",
+      "name": "GA4 — Scroll Depth",
+      "tier": "T3",
+      "type": "GA4 Event Tag",
+      "trigger": "event = scroll_depth",
+      "parameters": {
+        "event_name": "scroll",
+        "percent_scrolled": "{{DLV - depth_percent}}"
+      }
+    },
+    {
+      "id": "TAG-018",
+      "name": "GA4 — Share",
+      "tier": "T3",
+      "type": "GA4 Event Tag",
+      "trigger": "event = share",
+      "parameters": {
+        "event_name": "share",
+        "method": "{{DLV - method}}",
+        "content_type": "{{DLV - content_type}}",
+        "item_id": "{{DLV - item_id}}"
+      }
+    },
+    {
+      "id": "TAG-019",
+      "name": "Google Ads — Conversion (Purchase)",
+      "tier": "T1",
+      "type": "Google Ads Conversion Tracking Tag",
+      "trigger": "event = purchase",
+      "fields": {
+        "conversion_id": "AW-LMHOME",
+        "conversion_label": "purchase_complete",
+        "conversion_value": "{{DLV - ecommerce.value}}",
+        "transaction_id": "{{DLV - transaction_id}}",
+        "currency_code": "USD"
+      },
+      "dedup_required": true
+    },
+    {
+      "id": "TAG-020",
+      "name": "Google Ads — Remarketing (All Pages)",
+      "tier": "T2",
+      "type": "Google Ads Remarketing Tag",
+      "trigger": "All Pages",
+      "fields": {
+        "conversion_id": "AW-LMHOME"
+      }
+    },
+    {
+      "id": "TAG-021",
+      "name": "Google Ads — Dynamic Remarketing (Product View)",
+      "tier": "T2",
+      "type": "Google Ads Remarketing Tag",
+      "trigger": "event = view_item",
+      "fields": {
+        "conversion_id": "AW-LMHOME",
+        "dynx_itemid": "{{DLV - product_id}}",
+        "dynx_pagetype": "product"
+      }
+    },
+    {
+      "id": "TAG-022",
+      "name": "Meta (Facebook) Pixel — PageView",
+      "tier": "T1",
+      "type": "Custom HTML",
+      "trigger": "All Pages",
+      "notes": "fbq('init', 'LMHOME_PIXEL_ID'); fbq('track', 'PageView');"
+    },
+    {
+      "id": "TAG-023",
+      "name": "Meta Pixel — Purchase",
+      "tier": "T1",
+      "type": "Custom HTML",
+      "trigger": "event = purchase",
+      "notes": "fbq('track', 'Purchase', { value: {{DLV - ecommerce.value}}, currency: 'USD', content_ids: [item_ids], content_type: 'product' })"
+    },
+    {
+      "id": "TAG-024",
+      "name": "Meta Pixel — AddToCart",
+      "tier": "T2",
+      "type": "Custom HTML",
+      "trigger": "event = add_to_cart",
+      "notes": "fbq('track', 'AddToCart', { value, currency, content_ids, content_type })"
+    },
+    {
+      "id": "TAG-025",
+      "name": "Meta Pixel — ViewContent",
+      "tier": "T2",
+      "type": "Custom HTML",
+      "trigger": "event = view_item",
+      "notes": "fbq('track', 'ViewContent', { value, currency, content_ids, content_type })"
+    },
+    {
+      "id": "TAG-026",
+      "name": "Meta Pixel — InitiateCheckout",
+      "tier": "T2",
+      "type": "Custom HTML",
+      "trigger": "event = begin_checkout"
+    },
+    {
+      "id": "TAG-027",
+      "name": "Meta Pixel — Lead",
+      "tier": "T3",
+      "type": "Custom HTML",
+      "trigger": "event = generate_lead"
+    },
+    {
+      "id": "TAG-028",
+      "name": "Consent Mode v2 Update Tag",
+      "tier": "T1",
+      "type": "Custom HTML",
+      "trigger": "event = cmp_consent_granted OR Consent Initialization",
+      "notes": "gtag('consent', 'update', { ad_storage, analytics_storage, ad_user_data, ad_personalization }). CRITICAL: must fire before GA4 Config tag sends any hits."
+    },
+    {
+      "id": "TAG-029",
+      "name": "Enhanced Conversions — Purchase",
+      "tier": "T1",
+      "type": "Google Ads Enhanced Conversions Tag",
+      "trigger": "event = purchase",
+      "fields": {
+        "conversion_id": "AW-LMHOME",
+        "user_provided_data": {
+          "email": "{{DLV - enhanced_conversion_data.email}}"
+        }
+      }
+    },
+    {
+      "id": "TAG-030",
+      "name": "GA4 — Purchase Deduplication Guard",
+      "tier": "T1",
+      "type": "Custom HTML",
+      "trigger": "event = purchase",
+      "notes": "Checks sessionStorage for lh_purchase_fired_{transaction_id}. Blocks GTM from firing TAG-002 and TAG-019 on duplicate page loads (back-button, F5). Priority: fires before GA4/Ads purchase tags."
+    }
+  ],
+  "required_triggers": [
+    { "id": "TRG-001", "name": "All Pages", "type": "Page View", "tier": "T1" },
+    { "id": "TRG-002", "name": "DL — purchase", "type": "Custom Event", "event_name": "purchase", "tier": "T1" },
+    { "id": "TRG-003", "name": "DL — add_to_cart", "type": "Custom Event", "event_name": "add_to_cart", "tier": "T1" },
+    { "id": "TRG-004", "name": "DL — view_item", "type": "Custom Event", "event_name": "view_item", "tier": "T1" },
+    { "id": "TRG-005", "name": "DL — begin_checkout", "type": "Custom Event", "event_name": "begin_checkout", "tier": "T1" },
+    { "id": "TRG-006", "name": "DL — add_shipping_info", "type": "Custom Event", "event_name": "add_shipping_info", "tier": "T1" },
+    { "id": "TRG-007", "name": "DL — add_payment_info", "type": "Custom Event", "event_name": "add_payment_info", "tier": "T1" },
+    { "id": "TRG-008", "name": "DL — view_item_list", "type": "Custom Event", "event_name": "view_item_list", "tier": "T2" },
+    { "id": "TRG-009", "name": "DL — select_item", "type": "Custom Event", "event_name": "select_item", "tier": "T2" },
+    { "id": "TRG-010", "name": "DL — remove_from_cart", "type": "Custom Event", "event_name": "remove_from_cart", "tier": "T2" },
+    { "id": "TRG-011", "name": "DL — view_cart", "type": "Custom Event", "event_name": "view_cart", "tier": "T2" },
+    { "id": "TRG-012", "name": "DL — view_promotion", "type": "Custom Event", "event_name": "view_promotion", "tier": "T2" },
+    { "id": "TRG-013", "name": "DL — select_promotion", "type": "Custom Event", "event_name": "select_promotion", "tier": "T2" },
+    { "id": "TRG-014", "name": "DL — generate_lead", "type": "Custom Event", "event_name": "generate_lead", "tier": "T2" },
+    { "id": "TRG-015", "name": "DL — search", "type": "Custom Event", "event_name": "search", "tier": "T2" },
+    { "id": "TRG-016", "name": "DL — add_to_wishlist", "type": "Custom Event", "event_name": "add_to_wishlist", "tier": "T3" },
+    { "id": "TRG-017", "name": "DL — scroll_depth", "type": "Custom Event", "event_name": "scroll_depth", "tier": "T3" },
+    { "id": "TRG-018", "name": "DL — share", "type": "Custom Event", "event_name": "share", "tier": "T3" },
+    { "id": "TRG-019", "name": "Consent Init — Default Denied", "type": "Consent Initialization - All Pages", "tier": "T1" },
+    { "id": "TRG-020", "name": "DL — cmp_consent_granted", "type": "Custom Event", "event_name": "cmp_consent_granted", "tier": "T1" }
+  ],
+  "required_variables": [
+    { "id": "VAR-001", "name": "GA4 Measurement ID", "type": "Constant", "value": "G-LMHOME01", "tier": "T1" },
+    { "id": "VAR-002", "name": "Google Ads Conversion ID", "type": "Constant", "value": "AW-LMHOME", "tier": "T1" },
+    { "id": "VAR-003", "name": "Meta Pixel ID", "type": "Constant", "value": "LMHOME_PIXEL_ID", "tier": "T1" },
+    { "id": "VAR-004", "name": "DLV — ecommerce.value", "type": "Data Layer Variable", "dataLayerName": "ecommerce.value", "tier": "T1" },
+    { "id": "VAR-005", "name": "DLV — ecommerce.transaction_id", "type": "Data Layer Variable", "dataLayerName": "ecommerce.transaction_id", "tier": "T1" },
+    { "id": "VAR-006", "name": "DLV — ecommerce.items", "type": "Data Layer Variable", "dataLayerName": "ecommerce.items", "tier": "T1" },
+    { "id": "VAR-007", "name": "DLV — ecommerce.currency", "type": "Data Layer Variable", "dataLayerName": "ecommerce.currency", "tier": "T1" },
+    { "id": "VAR-008", "name": "DLV — ecommerce.coupon", "type": "Data Layer Variable", "dataLayerName": "ecommerce.coupon", "tier": "T2" },
+    { "id": "VAR-009", "name": "DLV — ecommerce.tax", "type": "Data Layer Variable", "dataLayerName": "ecommerce.tax", "tier": "T1" },
+    { "id": "VAR-010", "name": "DLV — ecommerce.shipping", "type": "Data Layer Variable", "dataLayerName": "ecommerce.shipping", "tier": "T1" },
+    { "id": "VAR-011", "name": "DLV — ecommerce.shipping_tier", "type": "Data Layer Variable", "dataLayerName": "ecommerce.shipping_tier", "tier": "T2" },
+    { "id": "VAR-012", "name": "DLV — ecommerce.payment_type", "type": "Data Layer Variable", "dataLayerName": "ecommerce.payment_type", "tier": "T2" },
+    { "id": "VAR-013", "name": "DLV — ecommerce.item_list_id", "type": "Data Layer Variable", "dataLayerName": "ecommerce.item_list_id", "tier": "T2" },
+    { "id": "VAR-014", "name": "DLV — ecommerce.item_list_name", "type": "Data Layer Variable", "dataLayerName": "ecommerce.item_list_name", "tier": "T2" },
+    { "id": "VAR-015", "name": "DLV — search_term", "type": "Data Layer Variable", "dataLayerName": "search_term", "tier": "T2" },
+    { "id": "VAR-016", "name": "DLV — lead_type", "type": "Data Layer Variable", "dataLayerName": "lead_type", "tier": "T2" },
+    { "id": "VAR-017", "name": "DLV — page_type", "type": "Data Layer Variable", "dataLayerName": "page_type", "tier": "T1" },
+    { "id": "VAR-018", "name": "DLV — user.logged_in", "type": "Data Layer Variable", "dataLayerName": "user.logged_in", "tier": "T2" },
+    { "id": "VAR-019", "name": "DLV — consent.analytics", "type": "Data Layer Variable", "dataLayerName": "consent.analytics", "tier": "T1" },
+    { "id": "VAR-020", "name": "DLV — consent.advertising", "type": "Data Layer Variable", "dataLayerName": "consent.advertising", "tier": "T1" },
+    { "id": "VAR-021", "name": "DLV — ecommerce.promotions", "type": "Data Layer Variable", "dataLayerName": "ecommerce.promotions", "tier": "T2" },
+    { "id": "VAR-022", "name": "DLV — enhanced_conversion_data.email", "type": "Data Layer Variable", "dataLayerName": "enhanced_conversion_data.email", "tier": "T1" },
+    { "id": "VAR-023", "name": "JS — Item IDs from ecommerce.items", "type": "Custom JavaScript", "description": "Extracts array of item_id strings from ecommerce.items for Meta Pixel content_ids param", "tier": "T2" },
+    { "id": "VAR-024", "name": "JS — First Item Category", "type": "Custom JavaScript", "description": "Returns ecommerce.items[0].item_category or null", "tier": "T3" },
+    { "id": "VAR-025", "name": "Lookup — Page Type to GA4 Content Group", "type": "Lookup Table", "input_variable": "{{DLV — page_type}}", "lookup_map": { "home": "Homepage", "category": "Category Page", "product": "Product Page", "cart": "Cart", "checkout": "Checkout", "confirmation": "Order Confirmation" }, "tier": "T2" },
+    { "id": "VAR-026", "name": "URL — UTM Source", "type": "URL", "component": "query", "query_key": "utm_source", "tier": "T2" },
+    { "id": "VAR-027", "name": "URL — UTM Medium", "type": "URL", "component": "query", "query_key": "utm_medium", "tier": "T2" },
+    { "id": "VAR-028", "name": "URL — UTM Campaign", "type": "URL", "component": "query", "query_key": "utm_campaign", "tier": "T2" },
+    { "id": "VAR-029", "name": "Cookie — First Touch UTM", "type": "1st Party Cookie", "cookie_name": "lh_first_utm", "description": "Preserve original UTM source on first visit in a cookie", "tier": "T3" },
+    { "id": "VAR-030", "name": "JS — Internal Traffic Filter", "type": "Custom JavaScript", "description": "Returns true if current IP matches LatentView office ranges (for internal traffic filtering)", "tier": "T3" }
+  ],
+  "required_folders": [
+    { "name": "GA4 — Core Ecommerce", "contains": ["TAG-001","TAG-002","TAG-003","TAG-004","TAG-005","TAG-006","TAG-007"] },
+    { "name": "GA4 — Engagement Events", "contains": ["TAG-008","TAG-009","TAG-010","TAG-011","TAG-012","TAG-013","TAG-014","TAG-015","TAG-016","TAG-017","TAG-018"] },
+    { "name": "Google Ads", "contains": ["TAG-019","TAG-020","TAG-021","TAG-029"] },
+    { "name": "Meta / Facebook", "contains": ["TAG-022","TAG-023","TAG-024","TAG-025","TAG-026","TAG-027"] },
+    { "name": "Consent & Privacy", "contains": ["TAG-028","TAG-030"] }
+  ],
+  "advanced_requirements": [
+    {
+      "id": "ADV-001",
+      "name": "Purchase deduplication",
+      "tier": "T1",
+      "description": "GA4 purchase and Google Ads purchase tags must not fire on duplicate page loads (back-button, F5). Implementation: Custom HTML guard tag fires first with priority 0, checks sessionStorage for lh_purchase_fired_{txnId}, sets a JS variable that blocks the other purchase tags."
+    },
+    {
+      "id": "ADV-002",
+      "name": "Consent Mode v2 — default denied",
+      "tier": "T1",
+      "description": "gtag consent defaults must fire BEFORE GTM loads (inline in <head>). Update fires when CMP grants consent via cmp_consent_granted event. All ad tags must respect ad_storage: denied until consent granted."
+    },
+    {
+      "id": "ADV-003",
+      "name": "Enhanced Conversions for Google Ads",
+      "tier": "T1",
+      "description": "Hashed customer email passed to Google Ads EC tag on purchase confirmation page. Source: enhanced_conversion_data.email in dataLayer. Hash algorithm: SHA-256. Fires only when email is present and consent is granted."
+    },
+    {
+      "id": "ADV-004",
+      "name": "GA4 ecommerce — clear ecommerce object",
+      "tier": "T1",
+      "description": "dataLayer.push({ ecommerce: null }) MUST fire before every ecommerce event push to clear the previous ecommerce object. Without this, GA4 inherits stale items from prior events. All 11 ecommerce events on this site follow this pattern."
+    },
+    {
+      "id": "ADV-005",
+      "name": "UTM parameter preservation",
+      "tier": "T2",
+      "description": "First-click UTM parameters stored in 1st party cookie on landing page. Cookie name: lh_first_utm. Expires: 90 days. Used to attribute leads and purchases to original acquisition source even through multi-session journeys."
+    },
+    {
+      "id": "ADV-006",
+      "name": "Internal traffic exclusion",
+      "tier": "T3",
+      "description": "GA4 config tag must exclude LatentView internal traffic. Method: Custom HTML tag that reads IP from a lookup service, sets GA4 traffic_type parameter to 'internal' if IP matches office ranges."
+    },
+    {
+      "id": "ADV-007",
+      "name": "Checkout funnel completeness validation",
+      "tier": "T2",
+      "description": "Every checkout step must be tracked: begin_checkout → add_shipping_info → add_payment_info → purchase. Missing any step means funnel analysis in GA4 will be incomplete. All four events are present in checkout.html."
+    },
+    {
+      "id": "ADV-008",
+      "name": "Promotion tracking (view + select)",
+      "tier": "T2",
+      "description": "Homepage hero banner fires view_promotion on load and select_promotion on click. Enables GA4 promotion performance report. Requires creative_name and creative_slot fields."
+    },
+    {
+      "id": "ADV-009",
+      "name": "item_list_id on product detail",
+      "tier": "T2",
+      "description": "view_item on product detail page should carry item_list_id from the referring list (featured_products, cat_ceiling, etc.) to enable GA4 attribution of item_list to purchases. Pass via URL param or sessionStorage."
+    },
+    {
+      "id": "ADV-010",
+      "name": "GA4 content_group for page types",
+      "tier": "T2",
+      "description": "GA4 Configuration tag should send content_group based on page_type dataLayer variable. Enables GA4 content group reporting. Use lookup table variable VAR-025 as the content_group parameter value."
+    }
+  ],
+  "datalayer_events": [
+    { "event": "page_meta", "fires_on": "all pages", "tier": "T1" },
+    { "event": "view_item_list", "fires_on": "homepage featured, products page, related products, cart upsells", "tier": "T2" },
+    { "event": "select_item", "fires_on": "any product card click", "tier": "T2" },
+    { "event": "view_item", "fires_on": "product detail page load", "tier": "T1" },
+    { "event": "add_to_cart", "fires_on": "add to cart button click", "tier": "T1" },
+    { "event": "remove_from_cart", "fires_on": "remove button in cart", "tier": "T2" },
+    { "event": "view_cart", "fires_on": "cart page load", "tier": "T2" },
+    { "event": "begin_checkout", "fires_on": "checkout page load + checkout CTA click", "tier": "T1" },
+    { "event": "add_shipping_info", "fires_on": "shipping method selection + zip blur", "tier": "T1" },
+    { "event": "add_payment_info", "fires_on": "payment method selection + card number blur", "tier": "T1" },
+    { "event": "purchase", "fires_on": "confirmation page (with dedup guard)", "tier": "T1" },
+    { "event": "view_promotion", "fires_on": "homepage hero banner in viewport", "tier": "T2" },
+    { "event": "select_promotion", "fires_on": "promo banner click", "tier": "T2" },
+    { "event": "generate_lead", "fires_on": "newsletter + consultation form submit", "tier": "T2" },
+    { "event": "search", "fires_on": "search form submit", "tier": "T2" },
+    { "event": "add_to_wishlist", "fires_on": "wishlist button on product detail", "tier": "T3" },
+    { "event": "scroll_depth", "fires_on": "50% and 90% scroll on product pages", "tier": "T3" },
+    { "event": "share", "fires_on": "share buttons on product detail + confirmation", "tier": "T3" },
+    { "event": "cmp_consent_granted", "fires_on": "simulated CMP consent (2s timer on this test site)", "tier": "T1" },
+    { "event": "enhanced_conversion_data", "fires_on": "confirmation page when email available", "tier": "T1" }
+  ]
+}

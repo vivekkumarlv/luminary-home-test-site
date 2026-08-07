@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Lighting — Luminary Home</title>
+  <link rel="canonical" href="https://luminaryhome.test/products.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    :root { --brand: #b8860b; --brand-dark: #8b6508; }
+    body { font-family: 'Georgia', serif; }
+    .navbar-brand { font-size: 1.4rem; font-weight: 700; color: var(--brand) !important; }
+    .btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+    .product-card { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+    .price { font-size: 1.1rem; font-weight: 600; color: var(--brand-dark); }
+    .original-price { text-decoration: line-through; color: #999; font-size: 0.9rem; }
+    .filter-sidebar { position: sticky; top: 80px; }
+    .quick-add-btn { transition: opacity 0.2s; }
+    .sort-bar { background: #f8f4ee; border-radius: 6px; padding: 10px 16px; }
+    .active-filter { background: var(--brand); color: #fff; border-color: var(--brand); }
+    #results-count { color: #666; font-size: 0.9rem; }
+    .pagination .page-link { color: var(--brand); }
+    .pagination .page-item.active .page-link { background: var(--brand); border-color: var(--brand); }
+  </style>
+</head>
+<body>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'analytics_storage': 'denied',
+    'ad_user_data': 'denied', 'ad_personalization': 'denied', 'wait_for_update': 500
+  });
+
+  // Parse URL params for category/search
+  var params = new URLSearchParams(window.location.search);
+  var activeCategory = params.get('cat') || null;
+  var searchQuery = params.get('q') || null;
+  var filterSale = params.get('filter') === 'sale';
+
+  dataLayer.push({
+    event: 'page_meta',
+    page_type: 'category',
+    page_category: activeCategory || 'all',
+    search_term: searchQuery || null,
+    user: { logged_in: false, id_hashed: null, email_hashed: null, customer_type: 'new' }
+  });
+</script>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LUMINARY HOME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=ceiling" data-category="ceiling">Ceiling Lights</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=floor" data-category="floor">Floor Lamps</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=wall" data-category="wall">Wall Sconces</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=table" data-category="table">Table Lamps</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html?cat=smart" data-category="smart">Smart Lighting</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <form class="d-flex" id="search-form" role="search">
+          <input class="form-control form-control-sm me-2" type="search" id="search-input" placeholder="Search lighting..." value="">
+          <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+        </form>
+        <a href="cart.html" class="btn btn-sm btn-brand" id="cart-icon">Cart (<span id="cart-count">2</span>)</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="container py-4">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active" id="breadcrumb-category">All Lighting</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+
+    <!-- Filter Sidebar -->
+    <div class="col-md-3">
+      <div class="filter-sidebar">
+        <h6 class="fw-bold mb-3">Filters</h6>
+
+        <div class="mb-4">
+          <h6 class="text-muted small text-uppercase">Category</h6>
+          <div class="d-flex flex-column gap-1" id="category-filters">
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="">All Lighting</button>
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="ceiling">Ceiling Lights</button>
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="floor">Floor Lamps</button>
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="wall">Wall Sconces</button>
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="table">Table Lamps</button>
+            <button class="btn btn-sm text-start category-filter-btn" data-cat="smart">Smart Lighting</button>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="text-muted small text-uppercase">Price Range</h6>
+          <div class="d-flex flex-column gap-1" id="price-filters">
+            <button class="btn btn-sm text-start price-filter-btn active-filter" data-min="0" data-max="9999">All Prices</button>
+            <button class="btn btn-sm text-start price-filter-btn" data-min="0" data-max="99">Under $100</button>
+            <button class="btn btn-sm text-start price-filter-btn" data-min="100" data-max="299">$100 – $299</button>
+            <button class="btn btn-sm text-start price-filter-btn" data-min="300" data-max="599">$300 – $599</button>
+            <button class="btn btn-sm text-start price-filter-btn" data-min="600" data-max="9999">$600+</button>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="text-muted small text-uppercase">Style</h6>
+          <div class="form-check">
+            <input class="form-check-input style-filter" type="checkbox" id="style-modern" value="Modern">
+            <label class="form-check-label" for="style-modern">Modern</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input style-filter" type="checkbox" id="style-traditional" value="Traditional">
+            <label class="form-check-label" for="style-traditional">Traditional</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input style-filter" type="checkbox" id="style-industrial" value="Industrial">
+            <label class="form-check-label" for="style-industrial">Industrial</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input style-filter" type="checkbox" id="style-scandinavian" value="Scandinavian">
+            <label class="form-check-label" for="style-scandinavian">Scandinavian</label>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="text-muted small text-uppercase">Special</h6>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="filter-sale" value="sale">
+            <label class="form-check-label" for="filter-sale">On Sale</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="filter-new" value="new">
+            <label class="form-check-label" for="filter-new">New Arrivals</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="filter-smart" value="smart_compatible">
+            <label class="form-check-label" for="filter-smart">Smart Compatible</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="col-md-9">
+
+      <!-- Sort bar -->
+      <div class="sort-bar d-flex justify-content-between align-items-center mb-4">
+        <span id="results-count">Showing 12 products</span>
+        <div class="d-flex align-items-center gap-2">
+          <label for="sort-select" class="form-label mb-0 small">Sort by:</label>
+          <select class="form-select form-select-sm" id="sort-select" style="width:auto;">
+            <option value="featured">Featured</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="newest">Newest</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row g-4" id="product-grid">
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-001" data-product-name="Artisan Pendant Light"
+               data-price="299.00" data-category="Ceiling Lights" data-brand="Luminary Home"
+               data-variant="Brass" data-index="1">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🔆</div>
+              <span class="badge bg-warning text-dark mb-1">New</span>
+              <h6 class="card-title mt-1">Artisan Pendant Light</h6>
+              <p class="text-muted small">Brass finish, E26 socket, 120V</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(47)</span></div>
+              <div class="price">$299.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-001" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-001" data-product-name="Artisan Pendant Light"
+                      data-price="299.00" data-category="Ceiling Lights" data-variant="Brass">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-002" data-product-name="Crystal Chandelier 5-Light"
+               data-price="899.00" data-category="Ceiling Lights" data-brand="Luminary Home"
+               data-variant="Chrome" data-index="2">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">✨</div>
+              <h6 class="card-title mt-3">Crystal Chandelier 5-Light</h6>
+              <p class="text-muted small">Chrome, K9 crystal, 5x E14</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(23)</span></div>
+              <div class="price">$899.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-002" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-002" data-product-name="Crystal Chandelier 5-Light"
+                      data-price="899.00" data-category="Ceiling Lights" data-variant="Chrome">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-003" data-product-name="Minimalist Track Light Kit"
+               data-price="179.00" data-category="Ceiling Lights" data-brand="Luminary Home"
+               data-variant="Matte White" data-index="3">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">💡</div>
+              <span class="badge bg-danger mb-1">Sale</span>
+              <h6 class="card-title mt-1">Minimalist Track Light Kit</h6>
+              <p class="text-muted small">3-head adjustable, matte white</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(89)</span></div>
+              <div>
+                <span class="price">$149.00</span>
+                <span class="original-price ms-1">$179.00</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-003" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-003" data-product-name="Minimalist Track Light Kit"
+                      data-price="149.00" data-category="Ceiling Lights" data-variant="Matte White">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-007" data-product-name="Nordic Arc Floor Lamp"
+               data-price="439.00" data-category="Floor Lamps" data-brand="Luminary Home"
+               data-variant="Matte Black" data-index="4">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🪔</div>
+              <span class="badge bg-danger mb-1">Sale</span>
+              <h6 class="card-title mt-1">Nordic Arc Floor Lamp</h6>
+              <p class="text-muted small">Matte black, dimmable, E26</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(112)</span></div>
+              <div>
+                <span class="price">$439.00</span>
+                <span class="original-price ms-1">$549.00</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-007" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-007" data-product-name="Nordic Arc Floor Lamp"
+                      data-price="439.00" data-category="Floor Lamps" data-variant="Matte Black">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-008" data-product-name="Tripod Reading Floor Lamp"
+               data-price="329.00" data-category="Floor Lamps" data-brand="Luminary Home"
+               data-variant="Walnut Wood" data-index="5">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">📐</div>
+              <span class="badge bg-info text-dark mb-1">Bestseller</span>
+              <h6 class="card-title mt-1">Tripod Reading Floor Lamp</h6>
+              <p class="text-muted small">Walnut wood legs, linen shade</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(67)</span></div>
+              <div class="price">$329.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-008" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-008" data-product-name="Tripod Reading Floor Lamp"
+                      data-price="329.00" data-category="Floor Lamps" data-variant="Walnut Wood">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-012" data-product-name="Smart Edison Bulb Set"
+               data-price="89.00" data-category="Smart Lighting" data-brand="Luminary Home"
+               data-variant="Warm White 4-pack" data-index="6">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">⚡</div>
+              <span class="badge bg-info text-dark mb-1">Bestseller</span>
+              <h6 class="card-title mt-1">Smart Edison Bulb Set</h6>
+              <p class="text-muted small">App-controlled, 2700K, 4-pack</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(204)</span></div>
+              <div class="price">$89.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-012" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-012" data-product-name="Smart Edison Bulb Set"
+                      data-price="89.00" data-category="Smart Lighting" data-variant="Warm White 4-pack">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-013" data-product-name="Smart Ceiling Hub + Strip Kit"
+               data-price="249.00" data-category="Smart Lighting" data-brand="Luminary Home"
+               data-variant="RGB 5m" data-index="7">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🌈</div>
+              <span class="badge bg-warning text-dark mb-1">New</span>
+              <h6 class="card-title mt-1">Smart Ceiling Hub + Strip Kit</h6>
+              <p class="text-muted small">Matter compatible, RGB, 5m</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(31)</span></div>
+              <div class="price">$249.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-013" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-013" data-product-name="Smart Ceiling Hub + Strip Kit"
+                      data-price="249.00" data-category="Smart Lighting" data-variant="RGB 5m">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-019" data-product-name="Venetian Wall Sconce Pair"
+               data-price="189.00" data-category="Wall Sconces" data-brand="Luminary Home"
+               data-variant="Antique Gold" data-index="8">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🕯️</div>
+              <h6 class="card-title mt-3">Venetian Wall Sconce Pair</h6>
+              <p class="text-muted small">Antique gold, frosted glass, set of 2</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(56)</span></div>
+              <div class="price">$189.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-019" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-019" data-product-name="Venetian Wall Sconce Pair"
+                      data-price="189.00" data-category="Wall Sconces" data-variant="Antique Gold">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-024" data-product-name="Marble Base Table Lamp"
+               data-price="229.00" data-category="Table Lamps" data-brand="Luminary Home"
+               data-variant="White Marble" data-index="9">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🏛️</div>
+              <span class="badge bg-info text-dark mb-1">Bestseller</span>
+              <h6 class="card-title mt-1">Marble Base Table Lamp</h6>
+              <p class="text-muted small">White marble base, linen drum shade</p>
+              <div class="mb-1">⭐⭐⭐⭐⭐ <span class="text-muted small">(78)</span></div>
+              <div class="price">$229.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-024" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-024" data-product-name="Marble Base Table Lamp"
+                      data-price="229.00" data-category="Table Lamps" data-variant="White Marble">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-031" data-product-name="Industrial Cage Wall Light"
+               data-price="119.00" data-category="Wall Sconces" data-brand="Luminary Home"
+               data-variant="Raw Steel" data-index="10">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🔩</div>
+              <span class="badge bg-danger mb-1">Sale</span>
+              <h6 class="card-title mt-1">Industrial Cage Wall Light</h6>
+              <p class="text-muted small">Raw steel, vintage Edison, E26</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(143)</span></div>
+              <div>
+                <span class="price">$89.00</span>
+                <span class="original-price ms-1">$119.00</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-031" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-031" data-product-name="Industrial Cage Wall Light"
+                      data-price="89.00" data-category="Wall Sconces" data-variant="Raw Steel">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-036" data-product-name="Rattan Woven Pendant"
+               data-price="159.00" data-category="Ceiling Lights" data-brand="Luminary Home"
+               data-variant="Natural" data-index="11">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">🌿</div>
+              <span class="badge bg-warning text-dark mb-1">New</span>
+              <h6 class="card-title mt-1">Rattan Woven Pendant</h6>
+              <p class="text-muted small">Natural rattan, boho style, E26</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(62)</span></div>
+              <div class="price">$159.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-036" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-036" data-product-name="Rattan Woven Pendant"
+                      data-price="159.00" data-category="Ceiling Lights" data-variant="Natural">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card product-card h-100 product-item"
+               data-product-id="SKU-042" data-product-name="Solar Outdoor Pathway Lights"
+               data-price="79.00" data-category="Outdoor" data-brand="Luminary Home"
+               data-variant="Stainless 6-pack" data-index="12">
+            <div class="card-body text-center">
+              <div style="font-size:3rem;padding:16px;">☀️</div>
+              <h6 class="card-title mt-3">Solar Outdoor Pathway Lights</h6>
+              <p class="text-muted small">Stainless steel, IP65, 6-pack</p>
+              <div class="mb-1">⭐⭐⭐⭐ <span class="text-muted small">(98)</span></div>
+              <div class="price">$79.00</div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3 d-flex gap-2">
+              <a href="product.html?id=SKU-042" class="btn btn-outline-secondary btn-sm flex-grow-1">View</a>
+              <button class="btn btn-brand btn-sm flex-grow-1 add-to-cart-btn"
+                      data-product-id="SKU-042" data-product-name="Solar Outdoor Pathway Lights"
+                      data-price="79.00" data-category="Outdoor" data-variant="Stainless 6-pack">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /product-grid -->
+
+      <!-- Pagination -->
+      <nav class="mt-4" aria-label="Product pagination">
+        <ul class="pagination justify-content-center" id="pagination">
+          <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+          <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+          <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+
+    </div><!-- /col-md-9 -->
+  </div>
+</div>
+
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container text-center text-muted small">
+    <p class="mb-0">© 2024 Luminary Home. Test site for GTM benchmark purposes.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function() {
+  // Highlight active category filter
+  var catBtns = document.querySelectorAll('.category-filter-btn');
+  catBtns.forEach(function(btn) {
+    if (btn.dataset.cat === (activeCategory || '')) {
+      btn.classList.add('active-filter');
+    }
+    btn.addEventListener('click', function() {
+      var cat = this.dataset.cat;
+      dataLayer.push({ event: 'filter_applied', filter_type: 'category', filter_value: cat || 'all' });
+      window.location.href = 'products.html' + (cat ? '?cat=' + cat : '');
+    });
+  });
+
+  // Price filter
+  document.querySelectorAll('.price-filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.price-filter-btn').forEach(function(b){ b.classList.remove('active-filter'); });
+      this.classList.add('active-filter');
+      var min = parseFloat(this.dataset.min), max = parseFloat(this.dataset.max);
+      dataLayer.push({ event: 'filter_applied', filter_type: 'price_range', filter_value: min + '-' + max });
+    });
+  });
+
+  // Style checkboxes
+  document.querySelectorAll('.style-filter').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      dataLayer.push({ event: 'filter_applied', filter_type: 'style', filter_value: this.value, filter_active: this.checked });
+    });
+  });
+
+  // Sort
+  document.getElementById('sort-select').addEventListener('change', function() {
+    dataLayer.push({ event: 'sort_applied', sort_value: this.value });
+  });
+
+  // view_item_list — all visible products
+  var items = [];
+  document.querySelectorAll('.product-item').forEach(function(card, idx) {
+    items.push({
+      item_id: card.dataset.productId,
+      item_name: card.dataset.productName,
+      item_brand: 'Luminary Home',
+      item_category: card.dataset.category,
+      item_variant: card.dataset.variant,
+      price: parseFloat(card.dataset.price),
+      currency: 'USD',
+      index: idx + 1,
+      quantity: 1
+    });
+  });
+  dataLayer.push({ ecommerce: null });
+  dataLayer.push({
+    event: 'view_item_list',
+    ecommerce: {
+      item_list_id: activeCategory ? 'cat_' + activeCategory : 'all_products',
+      item_list_name: activeCategory ? activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1) : 'All Products',
+      items: items
+    }
+  });
+
+  // select_item on card click
+  document.querySelectorAll('.product-item').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('add-to-cart-btn')) return;
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'select_item',
+        ecommerce: {
+          item_list_id: activeCategory ? 'cat_' + activeCategory : 'all_products',
+          item_list_name: 'Products',
+          items: [{
+            item_id: card.dataset.productId,
+            item_name: card.dataset.productName,
+            item_brand: 'Luminary Home',
+            item_category: card.dataset.category,
+            item_variant: card.dataset.variant,
+            price: parseFloat(card.dataset.price),
+            currency: 'USD',
+            index: parseInt(card.dataset.index),
+            quantity: 1
+          }]
+        }
+      });
+    });
+  });
+
+  // add_to_cart
+  document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+          currency: 'USD',
+          value: parseFloat(this.dataset.price),
+          items: [{
+            item_id: this.dataset.productId,
+            item_name: this.dataset.productName,
+            item_brand: 'Luminary Home',
+            item_category: this.dataset.category,
+            item_variant: this.dataset.variant,
+            price: parseFloat(this.dataset.price),
+            currency: 'USD',
+            quantity: 1,
+            item_list_id: activeCategory ? 'cat_' + activeCategory : 'all_products'
+          }]
+        }
+      });
+      var count = parseInt(document.getElementById('cart-count').textContent) + 1;
+      document.getElementById('cart-count').textContent = count;
+      this.textContent = 'Added ✓';
+      var self = this;
+      setTimeout(function(){ self.textContent = 'Add to Cart'; }, 1500);
+    });
+  });
+
+  // Pagination click
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      dataLayer.push({ event: 'pagination_click', page_number: parseInt(this.dataset.page) });
+    });
+  });
+
+  // Search
+  document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var term = document.getElementById('search-input').value.trim();
+    if (term) {
+      dataLayer.push({ event: 'search', search_term: term, search_results_count: 12 });
+      window.location.href = 'products.html?q=' + encodeURIComponent(term);
+    }
+  });
+
+  if (searchQuery) {
+    document.getElementById('search-input').value = searchQuery;
+    document.getElementById('results-count').textContent = 'Search results for: "' + searchQuery + '"';
+    dataLayer.push({ event: 'view_search_results', search_term: searchQuery, search_results_count: 12 });
+  }
+
+})();
+</script>
+</body>
+</html>
