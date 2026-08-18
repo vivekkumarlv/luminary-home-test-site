@@ -3,8 +3,8 @@
     "name": "Luminary Home",
     "industry": "E-commerce — Home Decor / Lighting",
     "currency": "USD",
-    "gtm_container": "GTM-LMHOME1",
-    "ga4_measurement_id": "G-LMHOME01"
+    "gtm_container": "GTM-TG849LLN",
+    "ga4_measurement_id": "G-YPWELDWZKW"
   },
   "scoring_weights": {
     "coverage": 0.4,
@@ -24,7 +24,7 @@
       "type": "gtag.js / GA4 Configuration Tag",
       "trigger": "All Pages",
       "fields": {
-        "measurementId": "G-LMHOME01",
+        "measurementId": "G-TG849LLN",
         "send_page_view": true,
         "enhanced_measurement": true
       },
