@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
-<!-- End Google Tag Manager -->
-
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Luminary Home — Premium lighting fixtures and home decor. Shop ceiling lights, floor lamps, wall sconces and smart lighting solutions.">
@@ -38,8 +28,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .category-card img { width: 100%; height: 200px; object-fit: cover; }
     .category-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 16px; color: #fff; }
   </style>
+
+  <!-- Adobe Launch placeholder — swap URL per test environment -->
+  <script src="//assets.adobedtm.com/launch-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.min.js" async></script>
 </head>
 <body>
+
+<script src="auth.js"></script>
 
 <!-- GTM: dataLayer initialization + page metadata -->
 <script>
@@ -60,21 +55,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'event': 'page_meta',
     'page_type': 'home',
     'page_category': null,
-    'user': {
-      'logged_in': false,
-      'id_hashed': null,
-      'email_hashed': null,
-      'customer_type': 'new'
-    },
+    'user': LH.auth.getPageUserObject(),
     'consent': {
       'analytics': 'pending',
       'advertising': 'pending'
     }
   });
+
+  // Standard page_view event — GA4 pageview triggers listen for this
+  dataLayer.push({ 'event': 'page_view', 'page_type': 'home', 'page_title': document.title });
 </script>
 
 <!-- GTM Snippet (placeholder ID) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
 
 <!-- Promo Banner -->
 <div class="promo-banner" id="promo-banner" data-promotion-id="SUMMER_SALE_2024" data-promotion-name="Summer Sale">
@@ -97,7 +90,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li class="nav-item"><a class="nav-link" href="products.html?cat=table" data-category="table">Table Lamps</a></li>
         <li class="nav-item"><a class="nav-link" href="products.html?cat=smart" data-category="smart">Smart Lighting</a></li>
       </ul>
-      <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2" id="auth-nav-items"></div>
+      <div class="d-flex align-items-center gap-3 ms-3">
         <form class="d-flex" id="search-form" role="search">
           <input class="form-control form-control-sm me-2" type="search" id="search-input" placeholder="Search lighting..." aria-label="Search">
           <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
@@ -111,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <!-- GTM noscript -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG849LLN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Hero Section -->
 <section class="hero" id="hero-section">
@@ -365,6 +359,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script>
 (function() {
 
+  LH.auth.updateNav();
+
   // Fire view_promotion for hero banner
   dataLayer.push({ ecommerce: null });
   dataLayer.push({
@@ -461,10 +457,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   });
 
-  // Consultation form submit
+  // Consultation form submit — includes user_email (hashed) when logged in
   document.getElementById('consultation-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    dataLayer.push({ event: 'generate_lead', lead_type: 'consultation', form_id: 'consultation-form' });
+    var lhu = LH.auth.getUser();
+    dataLayer.push({
+      event: 'generate_lead',
+      lead_type: 'consultation',
+      form_id: 'consultation-form',
+      user_email: lhu ? lhu.email_hashed : null
+    });
     alert('Thank you! A designer will contact you within 24 hours.');
     this.reset();
   });

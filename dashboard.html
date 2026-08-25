@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Luminary Home</title>
+  <link rel="canonical" href="https://luminaryhome.test/dashboard.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    :root { --brand: #b8860b; --brand-dark: #8b6508; }
+    body { font-family: 'Georgia', serif; background: #fafafa; }
+    .navbar-brand { font-size: 1.4rem; font-weight: 700; color: var(--brand) !important; }
+    .btn-brand { background: var(--brand); border-color: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--brand); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700; }
+    .dashboard-card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 24px; }
+    .enquiry-row { border-left: 3px solid var(--brand); padding: 12px 16px; background: #fff; border-radius: 0 6px 6px 0; margin-bottom: 8px; }
+    .status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 20px; }
+    .status-open { background: #fef9f0; color: var(--brand-dark); }
+    .status-closed { background: #f0fdf4; color: #166534; }
+    .section-title { border-bottom: 2px solid var(--brand); display: inline-block; padding-bottom: 4px; }
+    .stat-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 16px 20px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--brand); }
+  </style>
+
+  <!-- Adobe Launch placeholder — swap URL per test environment -->
+  <script src="//assets.adobedtm.com/launch-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.min.js" async></script>
+</head>
+<body>
+
+<script src="auth.js"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'analytics_storage': 'denied',
+    'ad_user_data': 'denied', 'ad_personalization': 'denied', 'wait_for_update': 500
+  });
+
+  // Redirect unauthenticated users to login
+  if (!LH.auth.isLoggedIn()) { window.location.replace('login.html?redirect=dashboard.html'); }
+
+  var currentUser = LH.auth.getUser();
+
+  dataLayer.push({
+    event: 'page_meta',
+    page_type: 'account_dashboard',
+    user: LH.auth.getPageUserObject()
+  });
+
+  dataLayer.push({ event: 'page_view', page_type: 'account_dashboard', page_title: 'My Account — Luminary Home' });
+</script>
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LUMINARY HOME</a>
+    <div class="d-flex align-items-center gap-2">
+      <a href="products.html" class="btn btn-sm btn-outline-secondary">Shop</a>
+      <a href="cart.html" class="btn btn-sm btn-brand">Cart</a>
+      <a href="#" id="nav-logout-btn" class="btn btn-sm btn-link text-muted p-0 ms-1">Logout</a>
+    </div>
+  </div>
+</nav>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="container py-5">
+
+  <!-- Profile header -->
+  <div class="row align-items-center mb-5">
+    <div class="col-auto">
+      <div class="avatar" id="user-avatar">?</div>
+    </div>
+    <div class="col">
+      <h1 class="h3 mb-1" id="user-greeting">Welcome back</h1>
+      <p class="text-muted mb-0" id="user-email-display">Loading…</p>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div class="row g-3 mb-5" id="stats-row">
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="text-muted small">Orders</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="text-muted small">Consultations</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="text-muted small">Saved Items</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-number">$488</div>
+        <div class="text-muted small">Total Spent</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Past enquiries / consultations -->
+    <div class="col-md-7">
+      <h2 class="h5 mb-4"><span class="section-title">Past Enquiries</span></h2>
+
+      <div class="enquiry-row" id="enquiry-001"
+           data-enquiry-id="ENQ-001" data-enquiry-type="consultation">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="fw-semibold">Lighting Consultation — Living Room</div>
+            <div class="text-muted small mt-1">Requested advice on pendant lights and dimmer setup for a 5×6m open-plan living area.</div>
+            <div class="text-muted small mt-1">Submitted 12 Aug 2024</div>
+          </div>
+          <span class="status-badge status-closed ms-3">Resolved</span>
+        </div>
+      </div>
+
+      <div class="enquiry-row" id="enquiry-002"
+           data-enquiry-id="ENQ-002" data-enquiry-type="consultation">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="fw-semibold">Consultation — Home Office Lighting</div>
+            <div class="text-muted small mt-1">Looking for bias lighting and task lamp recommendations for a dual-monitor setup.</div>
+            <div class="text-muted small mt-1">Submitted 3 Aug 2024</div>
+          </div>
+          <span class="status-badge status-open ms-3">Open</span>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="index.html#consultation-section" class="btn btn-brand btn-sm" id="new-consultation-btn">
+          + New Consultation
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent orders -->
+    <div class="col-md-5">
+      <h2 class="h5 mb-4"><span class="section-title">Recent Orders</span></h2>
+
+      <div class="dashboard-card mb-3" id="order-LH-12345">
+        <div class="d-flex justify-content-between mb-2">
+          <span class="fw-semibold small">Order #LH-12345678</span>
+          <span class="badge bg-success">Delivered</span>
+        </div>
+        <div class="text-muted small mb-2">Artisan Pendant Light + Smart Edison Bulb Set</div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted small">20 Jul 2024</span>
+          <span class="fw-bold" style="color:var(--brand-dark);">$418.24</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card" id="order-LH-11122">
+        <div class="d-flex justify-content-between mb-2">
+          <span class="fw-semibold small">Order #LH-11122334</span>
+          <span class="badge bg-success">Delivered</span>
+        </div>
+        <div class="text-muted small mb-2">Nordic Arc Floor Lamp</div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted small">5 Jun 2024</span>
+          <span class="fw-bold" style="color:var(--brand-dark);">$439.00</span>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="products.html" class="btn btn-outline-secondary btn-sm">Browse Products</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function() {
+
+  var user = LH.auth.getUser();
+  if (!user) return; // guard — redirect already fired above
+
+  // Populate header with user info
+  var initials = (user.name || user.email).charAt(0).toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-greeting').textContent = 'Welcome back, ' + (user.name || 'there') + '!';
+  document.getElementById('user-email-display').textContent = user.email;
+
+  // Logout button
+  document.getElementById('nav-logout-btn').addEventListener('click', function (e) {
+    e.preventDefault();
+    LH.auth.logout();
+    dataLayer.push({ event: 'logout' });
+    window.location.href = 'index.html';
+  });
+
+  // Track enquiry row clicks
+  document.querySelectorAll('.enquiry-row').forEach(function (row) {
+    row.addEventListener('click', function () {
+      dataLayer.push({
+        event: 'view_enquiry',
+        enquiry_id: this.dataset.enquiryId,
+        enquiry_type: this.dataset.enquiryType
+      });
+    });
+    row.style.cursor = 'pointer';
+  });
+
+  // Track new consultation CTA click
+  document.getElementById('new-consultation-btn').addEventListener('click', function () {
+    dataLayer.push({ event: 'new_consultation_click', location: 'dashboard' });
+  });
+
+})();
+</script>
+</body>
+</html>
