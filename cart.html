@@ -33,6 +33,7 @@
 
 <script>
   window.dataLayer = window.dataLayer || [];
+  window.adobeDataLayer = window.adobeDataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('consent', 'default', {
     'ad_storage': 'denied', 'analytics_storage': 'denied',
@@ -57,6 +58,11 @@
   });
 
   dataLayer.push({ event: 'page_view', page_type: 'cart', page_title: document.title });
+
+  // NEW: Cart load event — testing Launch Alert Layer 1 change detection
+  dataLayer.push({ event: 'promo_impression', promo_id: 'CART_UPSELL', promo_creative: 'cart-sidebar' });
+  adobeDataLayer.push({ event: 'page:loaded', page: { name: 'Shopping Cart', pageType: 'cart', URL: window.location.href }, xdm: { eventType: 'web.webpagedetails.pageViews', web: { webPageDetails: { name: 'Shopping Cart', URL: window.location.href, pageViews: { value: 1 } } } } });
+  adobeDataLayer.push({ event: 'cart:viewed', cartContext: { totalValue: cartSubtotal, totalQuantity: cart.items.length, currency: 'USD' }, xdm: { eventType: 'commerce.productListViews', commerce: { productListViews: { value: 1 } }, productListItems: cart.items.map(function(i) { return { SKU: i.item_id, name: i.item_name, priceTotal: i.price, quantity: i.quantity }; }) } });
 </script>
 
 <!-- GTM -->
