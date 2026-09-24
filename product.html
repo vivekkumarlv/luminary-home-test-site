@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,15 +28,40 @@
     .tab-content { padding-top: 20px; }
   </style>
 
+  <!-- Consent Mode v2 defaults - fires before GTM -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
+  <!-- End Google Tag Manager -->
   <!-- Adobe Launch placeholder — swap URL per test environment -->
   <script src="https://assets.adobedtm.com/757ce0c442a6/441512f9244c/launch-ab7da060546e-development.min.js" async></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG849LLN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <script src="auth.js"></script>
 
 <script>
   window.dataLayer = window.dataLayer || [];
+  window.adobeDataLayer = window.adobeDataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('consent', 'default', {
     'ad_storage': 'denied', 'analytics_storage': 'denied',
@@ -66,10 +91,24 @@
   });
 
   dataLayer.push({ event: 'page_view', page_type: 'product', page_title: document.title });
+
+  // Adobe Data Layer — page:loaded + product:viewed
+  adobeDataLayer.push({
+    event: 'page:loaded',
+    page: { name: product.name, pageType: 'product', URL: window.location.href, siteSection: product.category },
+    xdm: { eventType: 'web.webpagedetails.pageViews', web: { webPageDetails: { name: product.name, URL: window.location.href, pageViews: { value: 1 } } } }
+  });
+  adobeDataLayer.push({
+    event: 'product:viewed',
+    productContext: { SKU: product.id, name: product.name, category: product.category, price: product.price, currency: 'USD', brand: product.brand },
+    xdm: {
+      eventType: 'commerce.productViews',
+      commerce: { productViews: { value: 1 } },
+      productListItems: [{ SKU: product.id, name: product.name, priceTotal: product.price, quantity: 1, currencyCode: 'USD' }]
+    }
+  });
 </script>
 
-<!-- GTM -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
   <div class="container">
@@ -80,7 +119,6 @@
     </div>
   </div>
 </nav>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="container py-4">
 
@@ -460,6 +498,15 @@
         currency: 'USD',
         value: product.price * qty,
         items: [getAtcItem()]
+      }
+    });
+    adobeDataLayer.push({
+      event: 'product:addedToCart',
+      productContext: { SKU: product.id, name: product.name, category: product.category, price: product.price, currency: 'USD', quantity: qty },
+      xdm: {
+        eventType: 'commerce.productListAdds',
+        commerce: { productListAdds: { value: 1 }, order: { priceTotal: product.price * qty, currencyCode: 'USD' } },
+        productListItems: [{ SKU: product.id, name: product.name, priceTotal: product.price * qty, quantity: qty, currencyCode: 'USD' }]
       }
     });
     var count = parseInt(document.getElementById('cart-count').textContent) + qty;

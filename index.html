@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,26 +29,42 @@
     .category-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 16px; color: #fff; }
   </style>
 
+  <!-- Consent Mode v2 defaults - fires before GTM -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
+  <!-- End Google Tag Manager -->
   <!-- Adobe Launch placeholder — swap URL per test environment -->
   <script src="https://assets.adobedtm.com/757ce0c442a6/441512f9244c/launch-ab7da060546e-development.min.js" async></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG849LLN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <script src="auth.js"></script>
 
 <!-- GTM: dataLayer initialization + page metadata -->
 <script>
   window.dataLayer = window.dataLayer || [];
+  window.adobeDataLayer = window.adobeDataLayer || [];
 
-  // Consent Mode v2 default — fires BEFORE GTM snippet
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied',
-    'wait_for_update': 500
-  });
 
   // Page metadata push
   dataLayer.push({
@@ -64,10 +80,27 @@
 
   // Standard page_view event — GA4 pageview triggers listen for this
   dataLayer.push({ 'event': 'page_view', 'page_type': 'home', 'page_title': document.title });
+
+  // NEW: Hero promotion impression — testing Launch Alert Layer 1 change detection
+  dataLayer.push({ 'event': 'promo_impression', 'promo_id': 'SUMMER_SALE_2024', 'promo_creative': 'hero-banner' });
+
+  // Adobe Data Layer (ACDL) — page:loaded event for Adobe Launch rules
+  adobeDataLayer.push({
+    event: 'page:loaded',
+    page: { name: 'Home', pageType: 'home', URL: window.location.href, title: document.title, siteSection: 'Homepage' },
+    xdm: {
+      eventType: 'web.webpagedetails.pageViews',
+      web: { webPageDetails: { name: 'Home', URL: window.location.href, pageViews: { value: 1 } } }
+    }
+  });
+
+  // NEW: Promo banner impression — added to test Launch Alert Layer 1 change detection
+  adobeDataLayer.push({
+    event: 'promo:banner_viewed',
+    component: { id: 'summer-sale-hero', type: 'promotion', name: 'Summer Sale 2024' }
+  });
 </script>
 
-<!-- GTM Snippet (placeholder ID) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
 
 <!-- Promo Banner -->
 <div class="promo-banner" id="promo-banner" data-promotion-id="SUMMER_SALE_2024" data-promotion-name="Summer Sale">
@@ -104,8 +137,6 @@
   </div>
 </nav>
 
-<!-- GTM noscript -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Hero Section -->
 <section class="hero" id="hero-section">
@@ -452,6 +483,7 @@
     var email = document.getElementById('newsletter-email').value;
     if (email) {
       dataLayer.push({ event: 'generate_lead', lead_type: 'newsletter', form_id: 'newsletter-form' });
+      adobeDataLayer.push({ event: 'form:submitted', form: { id: 'newsletter-form', type: 'newsletter' }, xdm: { eventType: 'web.formFilledOut', web: { webInteraction: { name: 'Newsletter Signup', type: 'other' } } } });
       alert('Thank you for subscribing!');
       this.reset();
     }
@@ -467,6 +499,7 @@
       form_id: 'consultation-form',
       user_email: lhu ? lhu.email_hashed : null
     });
+    adobeDataLayer.push({ event: 'form:submitted', form: { id: 'consultation-form', type: 'consultation' }, xdm: { eventType: 'web.formFilledOut', web: { webInteraction: { name: 'Free Consultation', type: 'other' } } } });
     alert('Thank you! A designer will contact you within 24 hours.');
     this.reset();
   });
@@ -498,13 +531,6 @@
   }, 2000);
 
 })();
-</script>
-<script>
-  window.adobeDataLayer = window.adobeDataLayer || [];
-  window.adobeDataLayer.push({
-    event: "test:promo_viewed",
-    component: { id: "hero-banner-v2", type: "promotion" }
-  });
 </script>
 </body>
 </html>

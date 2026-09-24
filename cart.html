@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -24,10 +24,34 @@
     .free-shipping-bar { background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; padding: 10px 14px; font-size: 0.9rem; }
   </style>
 
+  <!-- Consent Mode v2 defaults - fires before GTM -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
+  <!-- End Google Tag Manager -->
   <!-- Adobe Launch placeholder — swap URL per test environment -->
   <script src="https://assets.adobedtm.com/757ce0c442a6/441512f9244c/launch-ab7da060546e-development.min.js" async></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG849LLN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <script src="auth.js"></script>
 
@@ -61,14 +85,10 @@
 
   // NEW: Cart load event — testing Launch Alert Layer 1 change detection
   dataLayer.push({ event: 'promo_impression', promo_id: 'CART_UPSELL', promo_creative: 'cart-sidebar' });
-  // DEMO: New upsell event added to cart page — should trigger Layer 1 alert
-  dataLayer.push({ event: 'cart_upsell_viewed', recommendation_type: 'cross_sell', position: 'sidebar' });
   adobeDataLayer.push({ event: 'page:loaded', page: { name: 'Shopping Cart', pageType: 'cart', URL: window.location.href }, xdm: { eventType: 'web.webpagedetails.pageViews', web: { webPageDetails: { name: 'Shopping Cart', URL: window.location.href, pageViews: { value: 1 } } } } });
   adobeDataLayer.push({ event: 'cart:viewed', cartContext: { totalValue: cartSubtotal, totalQuantity: cart.items.length, currency: 'USD' }, xdm: { eventType: 'commerce.productListViews', commerce: { productListViews: { value: 1 } }, productListItems: cart.items.map(function(i) { return { SKU: i.item_id, name: i.item_name, priceTotal: i.price, quantity: i.quantity }; }) } });
 </script>
 
-<!-- GTM -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
   <div class="container">
@@ -79,7 +99,6 @@
     </div>
   </div>
 </nav>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="container py-4">
 

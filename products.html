@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -25,15 +25,40 @@
     .pagination .page-item.active .page-link { background: var(--brand); border-color: var(--brand); }
   </style>
 
+  <!-- Consent Mode v2 defaults - fires before GTM -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TG849LLN');</script>
+  <!-- End Google Tag Manager -->
   <!-- Adobe Launch placeholder — swap URL per test environment -->
   <script src="https://assets.adobedtm.com/757ce0c442a6/441512f9244c/launch-ab7da060546e-development.min.js" async></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG849LLN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 
 <script src="auth.js"></script>
 
 <script>
   window.dataLayer = window.dataLayer || [];
+  window.adobeDataLayer = window.adobeDataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('consent', 'default', {
     'ad_storage': 'denied', 'analytics_storage': 'denied',
@@ -55,10 +80,9 @@
   });
 
   dataLayer.push({ event: 'page_view', page_type: 'category', page_title: document.title });
+  adobeDataLayer.push({ event: 'page:loaded', page: { name: 'Product Listing', pageType: 'category', URL: window.location.href }, xdm: { eventType: 'web.webpagedetails.pageViews', web: { webPageDetails: { name: 'Product Listing', URL: window.location.href, pageViews: { value: 1 } } } } });
 </script>
 
-<!-- GTM -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-LMHOME1');</script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" id="main-nav">
   <div class="container">
@@ -85,7 +109,6 @@
     </div>
   </div>
 </nav>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-LMHOME1" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="container py-4">
 
@@ -542,6 +565,15 @@
       items: items
     }
   });
+  adobeDataLayer.push({
+    event: 'productList:viewed',
+    listContext: { id: activeCategory ? 'cat_' + activeCategory : 'all_products', name: activeCategory || 'All Products' },
+    xdm: {
+      eventType: 'commerce.productListViews',
+      commerce: { productListViews: { value: 1 } },
+      productListItems: items.map(function(i) { return { SKU: i.item_id, name: i.item_name, priceTotal: i.price, quantity: i.quantity || 1 }; })
+    }
+  });
 
   // select_item on card click
   document.querySelectorAll('.product-item').forEach(function(card) {
@@ -565,6 +597,11 @@
             quantity: 1
           }]
         }
+      });
+      adobeDataLayer.push({
+        event: 'product:clicked',
+        productContext: { SKU: card.dataset.productId, name: card.dataset.productName, category: card.dataset.category, price: parseFloat(card.dataset.price), currency: 'USD' },
+        xdm: { eventType: 'commerce.productListClicks', commerce: { productListClicks: { value: 1 } }, productListItems: [{ SKU: card.dataset.productId, name: card.dataset.productName, priceTotal: parseFloat(card.dataset.price), quantity: 1 }] }
       });
     });
   });
@@ -591,6 +628,11 @@
             item_list_id: activeCategory ? 'cat_' + activeCategory : 'all_products'
           }]
         }
+      });
+      adobeDataLayer.push({
+        event: 'product:addedToCart',
+        productContext: { SKU: this.dataset.productId, name: this.dataset.productName, category: this.dataset.category, price: parseFloat(this.dataset.price), currency: 'USD', quantity: 1 },
+        xdm: { eventType: 'commerce.productListAdds', commerce: { productListAdds: { value: 1 } }, productListItems: [{ SKU: this.dataset.productId, name: this.dataset.productName, priceTotal: parseFloat(this.dataset.price), quantity: 1 }] }
       });
       var count = parseInt(document.getElementById('cart-count').textContent) + 1;
       document.getElementById('cart-count').textContent = count;
